@@ -17,4 +17,8 @@ Split into two types of server
 ```shell
 cilium install --set=ipam.operator.clusterPoolIPv4PodCIDRList=10.42.0.0/16 --set bgpControlPlane.enabled=true --set kubeProxyReplacement=true --set ingressController.enabled=true --set k8sServiceHost=<change> --set k8sServicePort=6443
 ```
-4. Install ArgoCD in cluser
+4. Install ArgoCD in cluster
+```
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```

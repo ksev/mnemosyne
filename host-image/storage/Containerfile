@@ -1,7 +1,0 @@
-FROM quay.io/fedora/fedora-coreos:stable
-
-RUN hell && \
-    ostree container commit
-
-LABEL NAME storage
-LABEL VERSION latest
