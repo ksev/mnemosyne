@@ -12,7 +12,7 @@ def main [image: string, target_drive: string] {
 			mv $file_name $base_iso
 	}
 	
-	jsonnet $"($image).bu.jsonnet" --tla-str $"public_key=($public_key)" | 
+	jsonnet $"($image)/butane.jsonnet" --tla-str $"publicKey=($public_key)" | 
 		butane --pretty --strict --output $ign_file
 
 	ignition-validate $ign_file
