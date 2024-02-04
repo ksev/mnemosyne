@@ -116,8 +116,10 @@ local secretName = 'cloudflare-api-token-secret';
             path: '/',
             pathType: 'Prefix',
             backend: {
-              service: 'argocd-service',
-              port: { name: 'https' },
+              service: {
+                name: 'argocd-service',
+                port: { name: 'https' }
+              }
             },
           }],
         },
