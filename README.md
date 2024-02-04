@@ -15,7 +15,7 @@ Split into two types of server
 2. Stand up k3s cluster on one machine, 
 3. Install Cilium in cluster
 ```shell
-cilium install --set=ipam.operator.clusterPoolIPv4PodCIDRList=10.42.0.0/16 --set bgpControlPlane.enabled=true --set kubeProxyReplacement=true --set ingressController.enabled=true --set k8sServiceHost=<change> --set k8sServicePort=6443
+cilium install --set=ipam.operator.clusterPoolIPv4PodCIDRList=10.42.0.0/16 --set bgpControlPlane.enabled=true --set kubeProxyReplacement=true --set ingressController.enabled=true --set k8sServiceHost=<change> --set k8sServicePort=6443 --set gatewayAPI.enabled=true
 ```
 4. Install 1Password connect and Operator 
 This needs to be done outside of ArgoCD to preserve bootstrap secrets
