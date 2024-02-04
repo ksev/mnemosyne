@@ -6,6 +6,7 @@ local secretName = 'cloudflare-api-token-secret';
     kind: 'OnePasswordItem',
     metadata: {
       name: secretName,
+      namespace: 'cert-manager'
     },
     spec: {
       itemPath: 'vaults/Homeserver/items/Cloudflare',
