@@ -1,5 +1,6 @@
 local secretName = 'cloudflare-api-token-secret';
 
+/*
 [
   {
     apiVersion: 'onepassword.com/v1',
@@ -76,3 +77,4 @@ local secretName = 'cloudflare-api-token-secret';
     },
   },
 ]
+*/
