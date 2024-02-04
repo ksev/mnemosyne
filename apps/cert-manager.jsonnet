@@ -26,6 +26,7 @@ local secretName = 'cloudflare-api-token-secret';
         chart: 'cert-manager',
         helm: {
           valuesObject: {
+            installCRDs: true,
             prometheus: {
               enabled: true,
               serviceMonitor: {
