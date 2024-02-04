@@ -62,6 +62,9 @@ local secretName = 'cloudflare-api-token-secret';
       acme: {
         email: 'something@kotee.co',
         server: 'https://acme-v02.api.letsencrypt.org/directory',
+        privateKeySecretRef: {
+          name: 'acme-issuer-account-key'
+        },
         solvers: [{
           dns01: {
             cloudflare: {
