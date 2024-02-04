@@ -40,6 +40,7 @@ local secretName = 'cloudflare-api-token-secret';
       },
     },
   },
+  /*
   {
     apiVersion: 'cert-manager.io/v1',
     kind: 'Issuer',
@@ -64,4 +65,5 @@ local secretName = 'cloudflare-api-token-secret';
       },
     },
   },
+  */
 ]
