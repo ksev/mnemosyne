@@ -30,11 +30,11 @@ local secretName = 'cloudflare-api-token-secret';
             prometheus: {
               enabled: true,
               serviceMonitor: {
-                enabled: true
-              }
-            }
-          }
-        }
+                enabled: true,
+              },
+            },
+          },
+        },
       },
       destination: {
         server: 'https://kubernetes.default.svc',
@@ -63,7 +63,7 @@ local secretName = 'cloudflare-api-token-secret';
         email: 'something@kotee.co',
         server: 'https://acme-v02.api.letsencrypt.org/directory',
         privateKeySecretRef: {
-          name: 'acme-issuer-account-key'
+          name: 'acme-issuer-account-key',
         },
         solvers: [{
           dns01: {
@@ -83,18 +83,17 @@ local secretName = 'cloudflare-api-token-secret';
     kind: 'Certificate',
     metadata: {
       name: 'argocd-ui-cert',
-      namespace: 'argocd'      
+      namespace: 'argocd',
     },
     spec: {
       secretName: 'argocd-server-tls',
       dnsNames: [
-        'argocd.kotee.co'
-      ]
+        'argocd.kotee.co',
+      ],
+      issuerRef: {
+        name: 'acme-issuer',
+        kind: 'Issuer',
+      },
     },
-    issuerRef: {
-      name: 'acme-issuer',
-      kind: 'Issuer'
-    }
-  }
+  },
 ]
-
