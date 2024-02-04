@@ -10,7 +10,7 @@
     source: {
       repoURL: 'https://prometheus-community.github.io/helm-charts',
       targetRevision: '56.6.1',
-      chart: 'kube-prometheus-stack',
+      chart: 'kube-prometheus-stack'
     },
     destination: {
       server: 'https://kubernetes.default.svc',
