@@ -27,12 +27,16 @@ local secretName = 'cloudflare-api-token-secret';
       },
       destination: {
         server: 'https://kubernetes.default.svc',
+        namespace: 'cert-manager',
       },
       syncPolicy: {
         automated: {
           prune: true,
           selfHeal: true,
-        }
+        },
+        syncOptions: [
+          'CreateNamespace=true',
+        ],
       },
     },
   },
@@ -41,6 +45,7 @@ local secretName = 'cloudflare-api-token-secret';
     kind: 'Issuer',
     metadata: {
       name: 'acme-issuer',
+      namespace: 'cert-manager',
     },
     spec: {
       acme: {
