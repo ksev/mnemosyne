@@ -1,9 +1,9 @@
 {
-  apiVersion: "argoproj.io/v1alpha1",
-  kind: "Application",
+  apiVersion: 'argoproj.io/v1alpha1',
+  kind: 'Application',
   metadata: {
     name: 'prometheus',
-    namespace: 'argocd'
+    namespace: 'argocd',
   },
   spec: {
     project: 'default',
@@ -11,10 +11,10 @@
       repoURL: 'https://prometheus-community.github.io/helm-charts',
       targetRevision: '56.6.1',
       chart: 'kube-prometheus-stack',
-      destination: {
-        server: 'https://kubernetes.default.svc',
-        namespace: 'prometheus'
-      }
-    }
-  }
+    },
+    destination: {
+      server: 'https://kubernetes.default.svc',
+      namespace: 'prometheus',
+    },
+  },
 }
