@@ -24,6 +24,16 @@ local secretName = 'cloudflare-api-token-secret';
         repoURL: 'https://charts.jetstack.io',
         targetRevision: '1.14.1',
         chart: 'cert-manager',
+        helm: {
+          valuesObject: {
+            prometheus: {
+              enabled: true,
+              serviceMonitor: {
+                enabled: true
+              }
+            }
+          }
+        }
       },
       destination: {
         server: 'https://kubernetes.default.svc',
@@ -40,7 +50,6 @@ local secretName = 'cloudflare-api-token-secret';
       },
     },
   },
-  /*
   {
     apiVersion: 'cert-manager.io/v1',
     kind: 'Issuer',
@@ -65,5 +74,4 @@ local secretName = 'cloudflare-api-token-secret';
       },
     },
   },
-  */
 ]
