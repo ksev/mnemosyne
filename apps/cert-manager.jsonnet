@@ -78,4 +78,23 @@ local secretName = 'cloudflare-api-token-secret';
       },
     },
   },
+  {
+    apiVersion: 'cert-manager.io/v1',
+    kind: 'Certificate',
+    metadata: {
+      name: 'argocd-ui-cert',
+      namespace: 'argocd'      
+    },
+    spec: {
+      secretName: 'argocd-server-tls',
+      dnsNames: [
+        'argocd.kotee.co'
+      ]
+    },
+    issuerRef: {
+      name: 'acme-issuer',
+      kind: 'Issuer'
+    }
+  }
 ]
+
