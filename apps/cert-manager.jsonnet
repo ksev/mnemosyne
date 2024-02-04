@@ -15,7 +15,7 @@ local secretName = 'cloudflare-api-token-secret';
     apiVersion: 'argoproj.io/v1alpha1',
     kind: 'Application',
     metadata: {
-      name: 'prometheus',
+      name: 'cert-manager',
       namespace: 'argocd',
     },
     spec: {
