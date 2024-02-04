@@ -32,7 +32,8 @@ local secretName = 'cloudflare-api-token-secret';
               serviceMonitor: {
                 enabled: true
               }
-            }
+            },
+            extraArgs: "{--feature-gates=ExperimentalGatewayAPISupport=true}"
           }
         }
       },
