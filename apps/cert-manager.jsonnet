@@ -5,6 +5,8 @@
     metadata: {
       name: 'cloudflare-api-token-secret'      
     },
-    itemPath: 'vaults/Homeserver/items/74n5slifc5nwpup5uos6uku6da/password'
+    spec: {
+      itemPath: 'vaults/Homeserver/items/Cloudflare/password'
+    }
   }  
 ]
