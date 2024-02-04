@@ -5,31 +5,56 @@ local secretName = 'cloudflare-api-token-secret';
     apiVersion: 'onepassword.com/v1',
     kind: 'OnePasswordItem',
     metadata: {
-      name: secretName      
+      name: secretName,
     },
     spec: {
-      itemPath: 'vaults/Homeserver/items/Cloudflare'
-    }
+      itemPath: 'vaults/Homeserver/items/Cloudflare',
+    },
+  },
+  {
+    apiVersion: 'argoproj.io/v1alpha1',
+    kind: 'Application',
+    metadata: {
+      name: 'prometheus',
+      namespace: 'argocd',
+    },
+    spec: {
+      project: 'default',
+      source: {
+        repoURL: 'https://charts.jetstack.io',
+        targetRevision: '1.14.1',
+        chart: 'cert-manager',
+      },
+      destination: {
+        server: 'https://kubernetes.default.svc',
+      },
+      syncPolicy: {
+        automated: {
+          prune: true,
+          selfHeal: true,
+        }
+      },
+    },
   },
   {
     apiVersion: 'cert-manager.io/v1',
     kind: 'Issuer',
     metadata: {
-      name: 'acme-issuer'
+      name: 'acme-issuer',
     },
     spec: {
       acme: {
         solvers: [{
-          dns01:{
+          dns01: {
             cloudflare: {
               apiTokenSecretRef: {
                 name: secretName,
-                key: 'password'
-              }
-            }    
-          }         
-        }]
-      }
-    }
-  }  
+                key: 'password',
+              },
+            },
+          },
+        }],
+      },
+    },
+  },
 ]
