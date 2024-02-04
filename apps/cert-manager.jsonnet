@@ -1,4 +1,4 @@
-local secretName = 'cloudflare-api-token-secret';
+// local secretName = 'cloudflare-api-token-secret';
 
 /*
 [
@@ -78,3 +78,4 @@ local secretName = 'cloudflare-api-token-secret';
   },
 ]
 */
+{}
