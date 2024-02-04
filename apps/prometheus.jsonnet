@@ -16,5 +16,14 @@
       server: 'https://kubernetes.default.svc',
       namespace: 'prometheus',
     },
+    syncPolicy: {
+      automated: {
+        prune: true,
+        selfHeal: true
+      },
+      syncOptions: [
+         'CreateNamespace=true' 
+      ]
+    }    
   },
 }
