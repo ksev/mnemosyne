@@ -6,7 +6,7 @@ local secretName = 'cloudflare-api-token-secret';
     kind: 'OnePasswordItem',
     metadata: {
       name: secretName,
-      namespace: 'cert-manager'
+      namespace: 'cert-manager',
     },
     spec: {
       itemPath: 'vaults/Homeserver/items/Cloudflare',
@@ -101,15 +101,15 @@ local secretName = 'cloudflare-api-token-secret';
     apiVersion: 'networking.k8s.io/v1',
     kind: 'Ingress',
     metadata: {
-      name: 'argo-ingress',
+      name: 'argocd-server-ingress',
       namespace: 'argocd',
       annotations: {
-        'ingress.cilium.io/tls-passthrough': 'enabled'
-      }
+        'ingress.cilium.io/tls-passthrough': 'enabled',
+      },
     },
     spec: {
       ingressClassName: 'cilium',
-      rules: {
+      rules: [{
         host: 'argocd.kotee.co',
         http: {
           paths: [{
@@ -117,11 +117,11 @@ local secretName = 'cloudflare-api-token-secret';
             pathType: 'Prefix',
             backend: {
               service: 'argocd-service',
-              port: { name: 'https' }
-            }
-          }]
-        }
-      }
-    }
-  }
+              port: { name: 'https' },
+            },
+          }],
+        },
+      }],
+    },
+  },
 ]
