@@ -8,7 +8,7 @@
   spec: {
     project: 'default',
     source: {
-      repoUrl: 'https://prometheus-community.github.io/helm-charts',
+      repoURL: 'https://prometheus-community.github.io/helm-charts',
       targetRevision: '56.6.1',
       chart: 'kube-prometheus-stack',
       destination: {
