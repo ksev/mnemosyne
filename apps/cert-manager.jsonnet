@@ -53,9 +53,9 @@ local secretName = 'cloudflare-api-token-secret';
   },
   {
     apiVersion: 'cert-manager.io/v1',
-    kind: 'Issuer',
+    kind: 'ClusterIssuer',
     metadata: {
-      name: 'acme-issuer',
+      name: 'letsencrypt-issuer',
       namespace: 'cert-manager',
     },
     spec: {
@@ -91,8 +91,8 @@ local secretName = 'cloudflare-api-token-secret';
         'argocd.kotee.co',
       ],
       issuerRef: {
-        name: 'acme-issuer',
-        kind: 'Issuer',
+        name: 'letsencrypt-issuer',
+        kind: 'ClusterIssuer',
       },
     },
   },
