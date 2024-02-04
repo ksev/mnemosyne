@@ -33,7 +33,7 @@ local secretName = 'cloudflare-api-token-secret';
                 enabled: true
               }
             },
-            extraArgs: "{--feature-gates=ExperimentalGatewayAPISupport=true}"
+            extraArgs: std.escapeStringJson("{--feature-gates=ExperimentalGatewayAPISupport=true}")
           }
         }
       },
