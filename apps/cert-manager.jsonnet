@@ -6,7 +6,7 @@
       name: 'cloudflare-api-token-secret'      
     },
     spec: {
-      itemPath: 'vaults/Homeserver/items/Cloudflare/password'
+      itemPath: 'vaults/Homeserver/items/Cloudflare'
     }
   }  
 ]
