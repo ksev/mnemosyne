@@ -97,4 +97,31 @@ local secretName = 'cloudflare-api-token-secret';
       },
     },
   },
+  {
+    apiVersion: 'networking.k8s.io/v1',
+    kind: 'Ingress',
+    metadata: {
+      name: 'argo-ingress',
+      namespace: 'argocd',
+      annotations: {
+        'ingress.cilium.io/tls-passthrough': 'enabled'
+      }
+    },
+    spec: {
+      ingressClassName: 'cilium',
+      rules: {
+        host: 'argocd.kotee.co',
+        http: {
+          paths: [{
+            path: '/',
+            pathType: 'Prefix',
+            backend: {
+              service: 'argocd-service',
+              port: { name: 'https' }
+            }
+          }]
+        }
+      }
+    }
+  }
 ]
