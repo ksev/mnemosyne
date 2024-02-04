@@ -22,7 +22,8 @@
         selfHeal: true
       },
       syncOptions: [
-         'CreateNamespace=true' 
+         'CreateNamespace=true', 
+         'ServerSideApply=true'
       ]
     }    
   },
