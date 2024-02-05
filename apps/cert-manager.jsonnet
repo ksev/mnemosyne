@@ -104,11 +104,12 @@ local secretName = 'cloudflare-api-token-secret';
       name: 'argocd-server-ingress',
       namespace: 'argocd',
       annotations: {
-        'ingress.cilium.io/tls-passthrough': 'enabled',
+         'nginx.ingress.kubernetes.io/force-ssl-redirect': 'true',
+         'nginx.ingress.kubernetes.io/ssl-passthrough': 'true'
       },
     },
     spec: {
-      ingressClassName: 'cilium',
+      ingressClassName: 'nginx',
       rules: [{
         host: 'argocd.kotee.co',
         http: {
