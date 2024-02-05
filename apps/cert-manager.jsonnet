@@ -118,12 +118,23 @@ local secretName = 'cloudflare-api-token-secret';
             backend: {
               service: {
                 name: 'argocd-service',
-                port: { name: 'https' }
-              }
+                port: { name: 'https' },
+              },
             },
           }],
         },
       }],
+    },
+  },
+  {
+    apiVersion: 'cilium.io/v2alpha1',
+    kind: 'CiliumLoadBalancerIPPool',
+    metadata: {
+      name: 'lb-pool',
+      namespace: 'cilium',
+    },
+    spec: {
+      cidrs: [{ cidr: '192.168.4.0/24' }],
     },
   },
 ]
