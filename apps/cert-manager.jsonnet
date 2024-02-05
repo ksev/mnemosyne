@@ -151,6 +151,9 @@ local secretName = 'cloudflare-api-token-secret';
     spec: {
       interfaces: [
         'team0',
+        'team0.1',
+        'enp6s0',
+        'enp6s0d1'
       ],
       loadBalancerIPs: true,
     },
