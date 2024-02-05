@@ -131,7 +131,7 @@ local secretName = 'cloudflare-api-token-secret';
     kind: 'CiliumLoadBalancerIPPool',
     metadata: {
       name: 'lb-pool',
-      namespace: 'cilium',
+      namespace: 'kube-system',
     },
     spec: {
       cidrs: [{ cidr: '192.168.4.0/24' }],
