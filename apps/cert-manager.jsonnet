@@ -106,7 +106,6 @@ local secretName = 'cloudflare-api-token-secret';
       annotations: {
         'nginx.ingress.kubernetes.io/force-ssl-redirect': 'true',
         'nginx.ingress.kubernetes.io/ssl-passthrough': 'true',
-        'nginx.ingress.kubernetes.io/backend-protocol': 'HTTPS',
       },
     },
     spec: {
@@ -125,10 +124,6 @@ local secretName = 'cloudflare-api-token-secret';
             },
           }],
         },
-      }],
-      tls: [{
-        hosts: ['argocd.kotee.co'],
-        secretName: 'argocd-server-tls',
       }],
     },
   },
