@@ -104,8 +104,9 @@ local secretName = 'cloudflare-api-token-secret';
       name: 'argocd-server-ingress',
       namespace: 'argocd',
       annotations: {
-         'nginx.ingress.kubernetes.io/force-ssl-redirect': 'true',
-         'nginx.ingress.kubernetes.io/ssl-passthrough': 'true'
+        'nginx.ingress.kubernetes.io/force-ssl-redirect': 'true',
+        'nginx.ingress.kubernetes.io/ssl-passthrough': 'true',
+        'nginx.ingress.kubernetes.io/backend-protocol': 'HTTPS',
       },
     },
     spec: {
@@ -127,8 +128,8 @@ local secretName = 'cloudflare-api-token-secret';
       }],
       tls: [{
         hosts: ['argocd.kotee.co'],
-        secretName: 'argocd-server-tls'
-      }]
+        secretName: 'argocd-server-tls',
+      }],
     },
   },
   {
@@ -141,9 +142,9 @@ local secretName = 'cloudflare-api-token-secret';
       blocks: [
         {
           start: '192.168.4.6',
-          stop: '192.168.4.254'
-        }
-      ]
+          stop: '192.168.4.254',
+        },
+      ],
     },
   },
   {
@@ -154,7 +155,7 @@ local secretName = 'cloudflare-api-token-secret';
     },
     spec: {
       interfaces: [
-        'team0'
+        'team0',
       ],
       loadBalancerIPs: true,
     },
