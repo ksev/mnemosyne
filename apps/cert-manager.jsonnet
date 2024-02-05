@@ -97,7 +97,6 @@ local secretName = 'cloudflare-api-token-secret';
       },
     },
   },
-  /*
   {
     apiVersion: 'networking.k8s.io/v1',
     kind: 'Ingress',
@@ -127,5 +126,4 @@ local secretName = 'cloudflare-api-token-secret';
       }],
     },
   },
-  */
 ]
