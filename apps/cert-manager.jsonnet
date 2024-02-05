@@ -137,4 +137,25 @@ local secretName = 'cloudflare-api-token-secret';
       cidrs: [{ cidr: '192.168.4.0/24' }],
     },
   },
+  {
+    apiVersion: 'cilium.io/v2alpha1',
+    kind: 'CiliumL2AnnouncementPolicy',
+    metadata: {
+      name: 'loadbalancerdefaults',
+      namespace: 'kube-system'
+    },
+    spec: {
+      nodeSelector: [
+        {
+          key: 'node-role.kubernetes.io/control-plane',
+          operator: 'Exists'
+        }
+      ],
+      interfaces: [
+        'team0'
+      ],
+      externalIPs: true,
+      loadBalancerIPs: true
+    }
+  }
 ]
