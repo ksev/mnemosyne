@@ -124,6 +124,10 @@ local secretName = 'cloudflare-api-token-secret';
           }],
         },
       }],
+      tls: [{
+        hosts: ['argocd.kotee.co'],
+        secretName: 'argocd-server-tls'
+      }]
     },
   },
   {
