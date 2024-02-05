@@ -14,6 +14,7 @@ function(publicKey)
   b.fcos15 +
   b.rebase('ghcr.io/ksev/ostree-images/k3s-node:latest') + 
   b.networkTeam('team0', ifaces) +
+  b.vlan('team0', 1) +
   b.vlan('team0', 5) +
   b.bootMirror(nvme) +
   b.partition(
