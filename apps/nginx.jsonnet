@@ -10,12 +10,7 @@
     source: {
       repoURL: 'https://kubernetes.github.io/ingress-nginx',
       targetRevision: '4.9.1',
-      chart: 'ingress-nginx',
-      helm: {
-        valueObject: {
-          'controller.extraArgs.enable-ssl-passthrough': ''
-        }
-      }
+      chart: 'ingress-nginx'
     },
     destination: {
       server: 'https://kubernetes.default.svc',
