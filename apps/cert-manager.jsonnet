@@ -142,20 +142,22 @@ local secretName = 'cloudflare-api-token-secret';
     kind: 'CiliumL2AnnouncementPolicy',
     metadata: {
       name: 'loadbalancerdefaults',
-      namespace: 'kube-system'
+      namespace: 'kube-system',
     },
     spec: {
-      nodeSelector: [
-        {
-          key: 'node-role.kubernetes.io/control-plane',
-          operator: 'Exists'
-        }
-      ],
+      nodeSelector: {
+        matchExpressions: [
+          {
+            key: 'node-role.kubernetes.io/control-plane',
+            operator: 'Exists',
+          },
+        ],
+      },
       interfaces: [
-        'team0'
+        'team0',
       ],
       externalIPs: true,
-      loadBalancerIPs: true
-    }
-  }
+      loadBalancerIPs: true,
+    },
+  },
 ]
