@@ -133,7 +133,12 @@ local secretName = 'cloudflare-api-token-secret';
       name: 'lb-pool',
     },
     spec: {
-      cidrs: [{ cidr: '192.168.4.0/24' }],
+      blocks: [
+        {
+          start: '192.168.4.6',
+          stop: '192.168.4.254'
+        }
+      ]
     },
   },
   {
