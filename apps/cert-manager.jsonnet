@@ -156,6 +156,7 @@ local secretName = 'cloudflare-api-token-secret';
         'enp6s0d1'
       ],
       loadBalancerIPs: true,
+      externalIPs: true
     },
   },
 ]
