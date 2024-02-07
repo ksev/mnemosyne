@@ -1,4 +1,4 @@
-local appFolder = function(name) {
+local appFolder = function(path, name) {
   apiVersion: 'argoproj.io/v1alpha1',
   kind: 'Application',
   metadata: {
@@ -7,13 +7,17 @@ local appFolder = function(name) {
   },
   spec: {
     project: 'default',
-    directory: {
-      include: './%s/*.jsonnet',
+    source: {
+      repoURL: 'https://github.com/ksev/mnemosyne.git',
+      targetRevision: 'HEAD',
+      path: path,
     },
+
     destination: {
       server: 'https://kubernetes.default.svc',
-      namespace: 'default'
+      namespace: 'default',
     },
+
     syncPolicy: {
       automated: {
         prune: true,
