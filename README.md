@@ -34,5 +34,5 @@ $: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.
 
 6. Kick off sync by applying the root ArgoCD app
 ```shell
-$: jsonnet root.jsonnet | kubectl apply -f -
+$: jsonnet -J lib/ root.jsonnet | kubectl apply -f -
 ```
