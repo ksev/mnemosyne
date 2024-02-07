@@ -7,6 +7,7 @@ local secretName = 'cloudflare-api-token-secret';
     metadata: {
       name: secretName,
       namespace: 'cert-manager',
+      'argocd.argoproj.io/sync-wave': "-1",
     },
     spec: {
       itemPath: 'vaults/Homeserver/items/Cloudflare',
@@ -18,6 +19,7 @@ local secretName = 'cloudflare-api-token-secret';
     metadata: {
       name: 'cert-manager',
       namespace: 'argocd',
+      'argocd.argoproj.io/sync-wave': "-1",
     },
     spec: {
       project: 'default',
@@ -95,71 +97,6 @@ local secretName = 'cloudflare-api-token-secret';
         name: 'letsencrypt-issuer',
         kind: 'ClusterIssuer',
       },
-    },
-  },
-  {
-    apiVersion: 'networking.k8s.io/v1',
-    kind: 'Ingress',
-    metadata: {
-      name: 'argocd-server-ingress',
-      namespace: 'argocd',
-      annotations: {
-        'nginx.ingress.kubernetes.io/force-ssl-redirect': 'true',
-        'nginx.ingress.kubernetes.io/ssl-passthrough': 'true',
-      },
-    },
-    spec: {
-      ingressClassName: 'nginx',
-      rules: [{
-        host: 'argocd.kotee.co',
-        http: {
-          paths: [{
-            path: '/',
-            pathType: 'Prefix',
-            backend: {
-              service: {
-                name: 'argocd-server',
-                port: { name: 'https' },
-              },
-            },
-          }],
-        },
-      }],
-    },
-  },
-  {
-    apiVersion: 'cilium.io/v2alpha1',
-    kind: 'CiliumLoadBalancerIPPool',
-    metadata: {
-      name: 'lb-pool',
-    },
-    spec: {
-      blocks: [
-        {
-          start: '192.168.4.6',
-          stop: '192.168.4.254',
-        },
-      ],
-    },
-  },
-  {
-    apiVersion: 'cilium.io/v2alpha1',
-    kind: 'CiliumL2AnnouncementPolicy',
-    metadata: {
-      name: 'l2announce-policy',
-    },
-    spec: {
-      nodeSelector: {
-        matchExpressions: [{
-          key: 'node-role.kubernetes.io/control-plane',
-          operator: 'Exists',
-        }],
-      },
-      interfaces: [
-        'team0',
-      ],
-      loadBalancerIPs: true,
-      externalIPs: true,
     },
   },
 ]
