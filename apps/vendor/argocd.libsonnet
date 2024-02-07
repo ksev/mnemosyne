@@ -10,6 +10,10 @@ local appFolder = function(name) {
     directory: {
       include: './%s/*.jsonnet',
     },
+    destination: {
+      server: 'https://kubernetes.default.svc',
+      namespace: 'default'
+    },
     syncPolicy: {
       automated: {
         prune: true,
