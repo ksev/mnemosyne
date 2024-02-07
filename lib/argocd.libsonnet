@@ -12,7 +12,9 @@ local appFolder = function(path, name) {
       targetRevision: 'HEAD',
       path: path,
       directory: {
-        libs: ['vendor', 'lib'],
+        jsonnet: {
+          libs: ['vendor', 'lib'],
+        },
       },
     },
 
