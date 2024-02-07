@@ -2,7 +2,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: external
-  namespace: monitoring
   labels:
     k8s-app: external
 spec:
@@ -18,7 +17,6 @@ apiVersion: v1
 kind: Endpoints
 metadata:
   name: external
-  namespace: monitoring
   labels:
     k8s-app: external
 subsets:
@@ -35,7 +33,6 @@ metadata:
   name: external
   labels:
     k8s-app: external
-  namespace: monitoring
 spec:
   endpoints:
   - interval: 15s
