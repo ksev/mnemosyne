@@ -151,15 +151,15 @@ local secretName = 'cloudflare-api-token-secret';
     spec: {
       nodeSelector: {
         matchExpressions: [{
-           key: 'node-role.kubernetes.io/control-plane=true',
-          operator: 'Exists' 
-        }]
+          key: 'node-role.kubernetes.io/control-plane',
+          operator: 'Exists',
+        }],
       },
       interfaces: [
         'team0',
       ],
       loadBalancerIPs: true,
-      externalIPs: true
+      externalIPs: true,
     },
   },
 ]
