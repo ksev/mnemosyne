@@ -17,10 +17,12 @@
             additionalScrapeConfigs: [{
               jobName: 'homey',
               scheme: 'http',
-              static_configs: ['192.168.2.121:9414']
-            }]
-          }
-        }
+              static_configs: [
+                { targets: ['192.168.2.121:9414'] },
+              ],
+            }],
+          },
+        },
       },
       destination: {
         server: 'https://kubernetes.default.svc',
