@@ -13,7 +13,7 @@
         targetRevision: '56.6.1',
         chart: 'kube-prometheus-stack',
         helm: {
-          valueObject: {
+          valuesObject: {
             prometheus: {
               prometheusSpec: {
                 additionalScrapeConfigs: [{
