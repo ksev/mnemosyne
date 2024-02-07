@@ -146,14 +146,17 @@ local secretName = 'cloudflare-api-token-secret';
     apiVersion: 'cilium.io/v2alpha1',
     kind: 'CiliumL2AnnouncementPolicy',
     metadata: {
-      name: 'ann-policy',
+      name: 'l2announce-policy',
     },
     spec: {
+      nodeSelector: {
+        matchExpressions: [{
+           key: 'node-role.kubernetes.io/control-plane=true',
+          operator: 'Exists' 
+        }]
+      },
       interfaces: [
         'team0',
-        'team0.1',
-        'enp6s0',
-        'enp6s0d1'
       ],
       loadBalancerIPs: true,
       externalIPs: true
