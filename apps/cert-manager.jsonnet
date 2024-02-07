@@ -7,7 +7,9 @@ local secretName = 'cloudflare-api-token-secret';
     metadata: {
       name: secretName,
       namespace: 'cert-manager',
-      'argocd.argoproj.io/sync-wave': "-1",
+      annotations: {
+        'argocd.argoproj.io/sync-wave': "-1",
+      }
     },
     spec: {
       itemPath: 'vaults/Homeserver/items/Cloudflare',
@@ -19,7 +21,9 @@ local secretName = 'cloudflare-api-token-secret';
     metadata: {
       name: 'cert-manager',
       namespace: 'argocd',
-      'argocd.argoproj.io/sync-wave': "-1",
+      annotations: {
+        'argocd.argoproj.io/sync-wave': "-1",
+      }
     },
     spec: {
       project: 'default',
