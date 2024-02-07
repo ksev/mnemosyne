@@ -8,8 +8,8 @@ local secretName = 'cloudflare-api-token-secret';
       name: secretName,
       namespace: 'cert-manager',
       annotations: {
-        'argocd.argoproj.io/sync-wave': "-1",
-      }
+        'argocd.argoproj.io/sync-wave': '-1',
+      },
     },
     spec: {
       itemPath: 'vaults/Homeserver/items/Cloudflare',
@@ -22,8 +22,8 @@ local secretName = 'cloudflare-api-token-secret';
       name: 'cert-manager',
       namespace: 'argocd',
       annotations: {
-        'argocd.argoproj.io/sync-wave': "-1",
-      }
+        'argocd.argoproj.io/sync-wave': '-1',
+      },
     },
     spec: {
       project: 'default',
@@ -102,5 +102,44 @@ local secretName = 'cloudflare-api-token-secret';
         kind: 'ClusterIssuer',
       },
     },
+  },
+  {
+    apiVersion: 'networking.k8s.io/v1',
+    kind: 'Ingress',
+    metadata: {
+      name: 'argocd-server-ingress',
+      namespace: 'argocd',
+      annotations: {
+        'ingress.cilium.io/tls-passthrough': 'enabled',
+      },
+    },
+    spec: {
+      ingressClassName: 'cilium',
+      rules: [{
+        host: 'argocd.kotee.co',
+        http: {
+          paths: [
+            {
+              path: '/',
+              pathType: 'Prefix',
+              backend: {
+                service: {
+                  name: 'argocd-server',
+                  port: {
+                    name: 'https',
+                  },
+                },
+              },
+            },
+          ],
+        },
+      }],
+    },
+    tls: [
+      {
+        hosts: ['argocd.kotee.co'],
+        secretName: 'argocd-server-tls',
+      },
+    ],
   },
 ]
