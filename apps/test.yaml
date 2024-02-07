@@ -40,9 +40,6 @@ spec:
     path: /metrics
     honorLabels: true
   jobLabel: k8s-app
-  namespaceSelector:
-    matchNames:
-    - monitoring
   selector:
     matchLabels:
       k8s-app: external
