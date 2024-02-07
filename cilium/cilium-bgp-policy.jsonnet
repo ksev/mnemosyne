@@ -14,6 +14,11 @@
             peerASN: 64512,
           },
         ],
+        serviceSelector: {
+          matchExpressions: [
+            { key: 'somekey', operator: 'NotIn', values: ['never-used-value'] },
+          ],
+        },
       },
     ],
   },
