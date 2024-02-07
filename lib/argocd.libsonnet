@@ -11,6 +11,9 @@ local appFolder = function(path, name) {
       repoURL: 'https://github.com/ksev/mnemosyne.git',
       targetRevision: 'HEAD',
       path: path,
+      directory: {
+        libs: ['vendor', 'lib'],
+      },
     },
 
     destination: {
