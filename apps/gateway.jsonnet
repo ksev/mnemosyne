@@ -1,2 +1,2 @@
 local acd = import '../lib/argocd.libsonnet';
-acd.appFolder('/apps/gateway/', 'gateway')
+acd.appFolder('apps/gateway/', 'gateway')
