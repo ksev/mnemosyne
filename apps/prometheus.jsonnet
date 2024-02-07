@@ -12,6 +12,22 @@
         repoURL: 'https://prometheus-community.github.io/helm-charts',
         targetRevision: '56.6.1',
         chart: 'kube-prometheus-stack',
+        helm: {
+          valueObject: {
+            prometheus: {
+              prometheusSpec: {
+                additionalScrapeConfigs: [{
+                  jobName: 'homey',
+                  static_configs: [
+                    { targets: [
+                      'http://192.168.2.121:9414',
+                    ] },
+                  ],
+                }],
+              },
+            },
+          },
+        },
       },
       destination: {
         server: 'https://kubernetes.default.svc',
