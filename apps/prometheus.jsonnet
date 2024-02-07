@@ -15,16 +15,16 @@
         helm: {
           valuesObject: {
             prometheus: {
-              prometheusSpec: {
-                additionalScrapeConfigs: [{
-                  jobName: 'homey',
-                  static_configs: [
-                    { targets: [
-                      'http://192.168.2.121:9414',
-                    ] },
-                  ],
-                }],
-              },
+              additionalScrapeConfigs: [{
+                jobName: 'homey',
+                scheme: 'http',
+                metrics_path: '/metrics',
+                static_configs: [
+                  { targets: [
+                    '192.168.2.121:9414',
+                  ] },
+                ],
+              }],
             },
           },
         },
