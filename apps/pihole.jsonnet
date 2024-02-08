@@ -29,6 +29,9 @@ local secretKey = 'pihole-admin-secret';
         existingSecret: secretKey,
         passwordKey: 'password',
       },
+      serviceWeb: {
+        type: 'LoadBalancer'
+      },
       serviceDns: {
         mixedService: true,
         loadBalancerIP: '10.50.1.1',
