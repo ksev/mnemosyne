@@ -38,7 +38,7 @@ local secretKey = 'pihole-admin-secret';
         enabled: false,
       },
       virtualHost: 'pihole.kotee.co',
-      adlist: blocklists,
+      adlists: blocklists,
     }
   ),
   {
