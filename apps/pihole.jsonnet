@@ -43,8 +43,6 @@ local secretKey = 'pihole-admin-secret';
         enabled: false,
       },
       adlist: blocklists,
-      virtualHost: 'pihole.kotee.co',
-      path: '/admin/',
       ingress: {
         enabled: true,
         ingressClassName: 'cilium',
