@@ -34,27 +34,47 @@ local secretKey = 'pihole-admin-secret';
         loadBalancerIP: '10.50.1.1',
         type: 'LoadBalancer',
       },
-      serviceWeb: {
-        https: {
-          enabled: false
-        }
-      },
       serviceDhcp: {
         enabled: false,
       },
+      virtualHost: 'pihole.kotee.co',
       adlist: blocklists,
-      ingress: {
-        enabled: true,
-        ingressClassName: 'cilium',
-        annotations: {
-          'cert-manager.io/cluster-issuer': 'letsencrypt-issuer',
-        },
-        hosts: ['pihole.kotee.co'],
-        tls: [{
-          hosts: ['pihole.kotee.co'],
-          secretName: 'pihole-tls',
-        }],
-      },
     }
   ),
+  {
+    apiVersion: 'networking.k8s.io/v1',
+    kind: 'Ingress',
+    metadata: {
+      annotations: {
+        'cert-manager.io/cluster-issuer': 'letsencrypt-issuer',
+      },
+      name: 'pihole',
+      namespace: 'pihole',
+    },
+    spec: {
+      ingressClassName: 'cilium',
+      rules: [{
+        host: 'pihole.kotee.co',
+        http: {
+          paths: [{
+            backend: {
+              service: {
+                name: 'pihole-web',
+                port: {
+                  name: 'http',
+                },
+              },
+              path: '/',
+              pathType: 'Prefix',
+
+            },
+          }],
+        },
+      }],
+      tls: [{
+        hosts: ['pihole.kotee.co'],
+        secretName: 'pihole-tls',
+      }],
+    },
+  },
 ]
