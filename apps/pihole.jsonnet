@@ -1,5 +1,13 @@
 local argocd = import 'argocd.libsonnet';
 
+local blocklists = [
+  'https://blocklistproject.github.io/Lists/%s.txt' % list,
+  for list in [
+    'abuse', 'ads', 'malware', 
+    'ransomware', 'scam', 'tracking', 'smart-tv'
+  ]
+];
+
 argocd.appHelm(
   'pi-hole',
   'https://mojo2600.github.io/pihole-kubernetes/',
@@ -14,6 +22,7 @@ argocd.appHelm(
     serviceDhcp: {
       enabled: false
     },
-    virtualHost: 'pihole.kotee.co'
+    virtualHost: 'pihole.kotee.co',
+    adlist: blocklists
   }
 )
