@@ -23,6 +23,16 @@ argocd.appHelm(
     },
     prometheus: {
       prometheusSpec: {
+        storageSpec: {
+          volumeClaimTemplate: {
+            spec: {
+              accessModes: ["ReadWriteOnce"],
+              resources: {
+                requests: { storage: '10Gi' }
+              }
+            }
+          }
+        },
         additionalScrapeConfigs: [{
           job_name: 'homey',
           static_configs: [
