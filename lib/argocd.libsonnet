@@ -40,7 +40,7 @@ local appFolder(name, path) =
       },
   };
 
-local appHelm(name, repo, chart, revision='HEAD', namespace='default', values={}) =
+local appHelm(name, repo, chart=name, revision='HEAD', namespace='default', values={}) =
   app(name) +
   {
     spec+: {
@@ -69,6 +69,14 @@ local appHelm(name, repo, chart, revision='HEAD', namespace='default', values={}
     },
   };
 
+local syncWave(nr) = {
+  metadata+: {
+    annotations+: {
+      'argocd.argoproj.io/sync-wave': '%d' % nr,
+    },
+  },
+};
+
 local serverSideApply = {
   spec+: {
     syncPolicy+: {
@@ -83,4 +91,5 @@ local serverSideApply = {
   appFolder: appFolder,
   appHelm: appHelm,
   serverSideApply: serverSideApply,
+  syncWave: syncWave,
 }

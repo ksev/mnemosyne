@@ -1,51 +1,25 @@
-local secretName = 'cloudflare-api-token-secret';
 local onePassword = import '1password.libsonnet';
+local argocd = import 'argocd.libsonnet';
+
+local secretName = 'cloudflare-api-token-secret';
 
 [
   onePassword.item('Cloudflare', secretName, namespace='cert-manager'),
-  {
-    apiVersion: 'argoproj.io/v1alpha1',
-    kind: 'Application',
-    metadata: {
-      name: 'cert-manager',
-      namespace: 'argocd',
-      annotations: {
-        'argocd.argoproj.io/sync-wave': '-1',
-      },
-    },
-    spec: {
-      project: 'default',
-      source: {
-        repoURL: 'https://charts.jetstack.io',
-        targetRevision: '1.14.1',
-        chart: 'cert-manager',
-        helm: {
-          valuesObject: {
-            installCRDs: true,
-            prometheus: {
-              enabled: true,
-              serviceMonitor: {
-                enabled: true,
-              },
-            },
-          },
+  argocd.appHelm(
+    'cert-manager',
+    'https://charts.jetstack.io',
+    revision='1.14.1',
+    namespace='cert-manager',
+    values={
+      installCRDs: true,
+      prometheus: {
+        enabled: true,
+        servicemonitor: {
+          enabled: true,
         },
       },
-      destination: {
-        server: 'https://kubernetes.default.svc',
-        namespace: 'cert-manager',
-      },
-      syncPolicy: {
-        automated: {
-          prune: true,
-          selfHeal: true,
-        },
-        syncOptions: [
-          'CreateNamespace=true',
-        ],
-      },
-    },
-  },
+    }
+  ) + argocd.syncWave(-1),
   {
     apiVersion: 'cert-manager.io/v1',
     kind: 'ClusterIssuer',

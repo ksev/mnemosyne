@@ -3,7 +3,7 @@ local argocd = import 'argocd.libsonnet';
 argocd.appHelm(
   'prometheus',
   'https://prometheus-community.github.io/helm-charts',
-  'kube-prometheus-stack',
+  chart='kube-prometheus-stack',
   revision='56.6.1',
   namespace='prometheus',
   values={
