@@ -37,17 +37,17 @@ local secretKey = 'pihole-admin-secret';
       serviceDhcp: {
         enabled: false,
       },
-      virtualHost: 'pihole.kotee.co',
       adlist: blocklists,
+      path: '/',
       ingress: {
         enabled: true,
         ingressClassName: 'cilium',
         annotations: {
           'cert-manager.io/cluster-issuer': 'letsencrypt-issuer',
         },
-        hosts: [],
+        hosts: ['pihole.kotee.co'],
         tls: [{
-          hosts: [],
+          hosts: ['pihole.kotee.co'],
           secretName: 'pihole-tls',
         }],
       },
