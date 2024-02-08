@@ -1,4 +1,4 @@
-local item = function(item, secretName, namespace='default') {
+local item(item, secretName, namespace='default') = {
     apiVersion: 'onepassword.com/v1',
     kind: 'OnePasswordItem',
     metadata: {

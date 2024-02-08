@@ -7,8 +7,13 @@ argocd.appHelm(
   revision='2.21.0',
   values={
     serviceDns: {
+      mixedService: true,
       loadBalancerIP: '10.50.1.1',
       type: 'LoadBalancer',
     },
+    serviceDhcp: {
+      enabled: false
+    },
+    virtualHost: 'pihole.kotee.co'
   }
 )
