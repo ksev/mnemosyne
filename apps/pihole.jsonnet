@@ -1,10 +1,15 @@
 local argocd = import 'argocd.libsonnet';
 
 local blocklists = [
-  'https://blocklistproject.github.io/Lists/%s.txt' % list,
+  'https://blocklistproject.github.io/Lists/%s.txt' % list
   for list in [
-    'abuse', 'ads', 'malware', 
-    'ransomware', 'scam', 'tracking', 'smart-tv'
+    'abuse',
+    'ads',
+    'malware',
+    'ransomware',
+    'scam',
+    'tracking',
+    'smart-tv',
   ]
 ];
 
@@ -20,9 +25,21 @@ argocd.appHelm(
       type: 'LoadBalancer',
     },
     serviceDhcp: {
-      enabled: false
+      enabled: false,
     },
     virtualHost: 'pihole.kotee.co',
-    adlist: blocklists
+    adlist: blocklists,
+    ingress: {
+      enabled: true,
+      ingressClassName: 'cilium',
+      annotations: {
+        'cert-manager.io/cluster-issuer': 'letsencrypt-issuer',
+      },
+      hosts: [],
+      tls: [{
+        hosts: [],
+        secretName: 'pihole-tls',
+      }],
+    },
   }
 )
