@@ -34,6 +34,11 @@ local secretKey = 'pihole-admin-secret';
         loadBalancerIP: '10.50.1.1',
         type: 'LoadBalancer',
       },
+      serviceWeb: {
+        https: {
+          enabled: false
+        }
+      },
       serviceDhcp: {
         enabled: false,
       },
