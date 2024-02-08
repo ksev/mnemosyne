@@ -1,20 +1,8 @@
 local secretName = 'cloudflare-api-token-secret';
+local onePassword = import '1password.libsonnet';
 
 [
-  {
-    apiVersion: 'onepassword.com/v1',
-    kind: 'OnePasswordItem',
-    metadata: {
-      name: secretName,
-      namespace: 'cert-manager',
-      annotations: {
-        'argocd.argoproj.io/sync-wave': '-1',
-      },
-    },
-    spec: {
-      itemPath: 'vaults/Homeserver/items/Cloudflare',
-    },
-  },
+  onePassword.item('Cloudflare', secretName, namespace='cert-manager'),
   {
     apiVersion: 'argoproj.io/v1alpha1',
     kind: 'Application',
