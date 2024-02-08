@@ -21,7 +21,7 @@
                   scheme: 'http',
                   metrics_path: '/metrics',
                   static_configs: [
-                    '192.168.2.121:9414',
+                    {targets: '192.168.2.121:9414'},
                   ],
                 }],
               },
