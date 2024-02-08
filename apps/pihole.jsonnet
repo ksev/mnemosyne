@@ -29,9 +29,6 @@ local secretKey = 'pihole-admin-secret';
         existingSecret: secretKey,
         passwordKey: 'password',
       },
-      serviceWeb: {
-        type: 'LoadBalancer'
-      },
       serviceDns: {
         mixedService: true,
         loadBalancerIP: '10.50.1.1',
@@ -41,6 +38,7 @@ local secretKey = 'pihole-admin-secret';
         enabled: false,
       },
       adlist: blocklists,
+      virtualHost: 'pihole.kotee.co',
       path: '/',
       ingress: {
         enabled: true,
