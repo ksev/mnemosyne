@@ -57,6 +57,8 @@ local secretKey = 'pihole-admin-secret';
         host: 'pihole.kotee.co',
         http: {
           paths: [{
+            path: '/',
+            pathType: 'Prefix',
             backend: {
               service: {
                 name: 'pihole-web',
@@ -64,9 +66,6 @@ local secretKey = 'pihole-admin-secret';
                   name: 'http',
                 },
               },
-              path: '/',
-              pathType: 'Prefix',
-
             },
           }],
         },
