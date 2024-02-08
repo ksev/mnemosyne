@@ -17,11 +17,11 @@
             prometheus: {
               prometheusSpec: {
                 additionalScrapeConfigs: [{
-                  jobName: 'homey',
+                  job_name: 'homey',
                   scheme: 'http',
                   metrics_path: '/metrics',
                   static_configs: [
-                    {targets: '192.168.2.121:9414'},
+                    {targets: ['192.168.2.121:9414']},
                   ],
                 }],
               },
