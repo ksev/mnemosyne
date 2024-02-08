@@ -33,7 +33,17 @@ local appFolder = function(name, path) {
   },
 };
 
-local appHelm = function(name, repo, chart, revision='HEAD', namespace='default', values={}, syncOptions=[]) {
+local serverSideApply = {
+  spec+: {
+    syncPolicy+: {
+      syncOptions+: [
+        'ServerSideApply=true',
+      ],
+    },
+  },
+};
+
+local appHelm = function(name, repo, chart, revision='HEAD', namespace='default', values={}) {
   apiVersion: 'argoproj.io/v1alpha1',
   kind: 'Application',
   metadata: {
@@ -61,7 +71,7 @@ local appHelm = function(name, repo, chart, revision='HEAD', namespace='default'
       },
       syncOptions: [
         'CreateNamespace=true',
-      ] + syncOptions,
+      ],
     },
   },
 };
@@ -69,4 +79,5 @@ local appHelm = function(name, repo, chart, revision='HEAD', namespace='default'
 {
   appFolder: appFolder,
   appHelm: appHelm,
+  serverSideApply: serverSideApply
 }

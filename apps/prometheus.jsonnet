@@ -6,9 +6,6 @@ argocd.appHelm(
   'kube-prometheus-stack',
   revision='56.6.1',
   namespace='prometheus',
-  syncPolicy=[
-    'ServerSideApply=true',
-  ],
   values={
     grafana: {
       ingress: {
@@ -35,4 +32,4 @@ argocd.appHelm(
       },
     },
   }
-)
+) + argocd.serverSideApply
