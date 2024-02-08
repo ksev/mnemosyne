@@ -14,18 +14,16 @@
         chart: 'kube-prometheus-stack',
         helm: {
           valuesObject: {
-            prometheusOperator: {
-              prometheus: {
-                prometheusSpec: {
-                  additionalScrapeConfigs: [{
-                    jobName: 'homey',
-                    scheme: 'http',
-                    metrics_path: '/metrics',
-                    static_configs: [
-                      '192.168.2.121:9414',
-                    ],
-                  }],
-                },
+            prometheus: {
+              prometheusSpec: {
+                additionalScrapeConfigs: [{
+                  jobName: 'homey',
+                  scheme: 'http',
+                  metrics_path: '/metrics',
+                  static_configs: [
+                    '192.168.2.121:9414',
+                  ],
+                }],
               },
             },
           },
