@@ -1,3 +1,3 @@
-local acd = import 'argocd.libsonnet';
+local argocd = import 'argocd.libsonnet';
 
-acd.appFolder('apps/', 'root') 
+argocd.appFolder('root', 'apps/') 
