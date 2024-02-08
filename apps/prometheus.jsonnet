@@ -14,7 +14,6 @@
       helm: {
         values: std.manifestYamlDoc({
           grafana: {
-            adminPassword: '',
             ingress: {
               enabled: true,
               ingressClassName: 'cilium',
