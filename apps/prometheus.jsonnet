@@ -14,6 +14,20 @@
         chart: 'kube-prometheus-stack',
         helm: {
           valuesObject: {
+            grafana: {
+              ingress: {
+                enabled: true,
+                ingressClassName: 'cilium',
+                annotations: {
+                  'cert-manager.io/cluster-issuer': 'letsencrypt-issuer'
+                },
+                hosts: ['grafana.kotee.co'],
+                tls: [{
+                  hosts: ['grafana.kotee.co'],
+                  secretName: 'grafana-tls'
+                }]
+              }
+            },
             prometheus: {
               prometheusSpec: {
                 additionalScrapeConfigs: [{
