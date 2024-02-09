@@ -9,7 +9,7 @@ local env(name, value) =
     valueFrom: {
       [value.type]: value,
     },
-  } else { value: value };
+  } else { value: '%s' % value };
 
 local envSecretValue(name, secretName, key) = {
   name: name,
