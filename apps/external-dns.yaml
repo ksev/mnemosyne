@@ -16,6 +16,9 @@ rules:
 - apiGroups: ["extensions","networking.k8s.io"]
   resources: ["ingresses"]
   verbs: ["get","watch","list"]
+- apiGroups: ["gateway.networking.k8s.io"]
+  resources: ["gateways","httproutes","grpcroutes","tlsroutes","tcproutes","udproutes"] 
+  verbs: ["get","watch","list"]
 - apiGroups: [""]
   resources: ["nodes"]
   verbs: ["list","watch"]
@@ -63,6 +66,11 @@ spec:
               name: pihole-admin-secret
               key: password                
         args:
+        - --source=gateway-httproute
+        - --source=gateway-grpcroute
+        - --source=gateway-tlsroute
+        - --source=gateway-tcproute
+        - --source=gateway-udproute
         - --source=service
         - --source=ingress
         # Pihole only supports A/CNAME records so there is no mechanism to track ownership.
