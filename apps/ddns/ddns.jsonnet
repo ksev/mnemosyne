@@ -51,7 +51,7 @@ local secretName = '%s-token' % name;
               env('PROXIED', false),
               env('DOMAINS', 'kotee.co'),
               env('CF_API_TOKEN', secretValue {
-                name: 'cloudflare-api-token-secret',
+                name: secretName,
                 key: 'password',
               }),
             ],
