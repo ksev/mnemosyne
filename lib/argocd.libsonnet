@@ -8,7 +8,7 @@ local app(name) = {
   spec: {},
 };
 
-local appFolder(name, path) =
+local appFolder(name, path, namespace='default') =
   app(name) +
   {
     spec+:
@@ -27,7 +27,7 @@ local appFolder(name, path) =
 
         destination: {
           server: 'https://kubernetes.default.svc',
-          namespace: 'default',
+          namespace: namespace,
         },
 
         syncPolicy: {
