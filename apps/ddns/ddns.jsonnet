@@ -22,7 +22,8 @@ local name = 'cloudflare-ddns';
 local secretName = '%s-token' % name;
 
 [
-  onePassword.item('Cloudflare', secretName, namespace='cert-manager') + argocd.syncWave(-1),
+  onePassword.item('Cloudflare', secretName, namespace='pihole') +
+  argocd.syncWave(-1),
   {
     apiVersion: 'apps/v1',
     kind: 'Deployment',
