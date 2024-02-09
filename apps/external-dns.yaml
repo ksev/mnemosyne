@@ -57,10 +57,11 @@ spec:
         # a secret, you can remove this block.
         env:
         - name: EXTERNAL_DNS_PIHOLE_PASSWORD
-          valueRef:
-            # Change this if you gave the secret a different name
-            name: pihole-admin-secret
-            key: password                
+          valueFrom:
+            secretKeyRef:
+              # Change this if you gave the secret a different name
+              name: pihole-admin-secret
+              key: password                
         args:
         - --source=service
         - --source=ingress
