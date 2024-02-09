@@ -93,6 +93,7 @@ local serverSideApply = {
 {
   appFolder: appFolder,
   appHelm: appHelm,
+  appRepo: appRepo,
   serverSideApply: serverSideApply,
   syncWave: syncWave,
 }
