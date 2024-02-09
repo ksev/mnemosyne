@@ -24,6 +24,9 @@ argocd.appHelm(
     prometheus: {
       prometheusSpec: {
         serviceMonitorSelectorNilUsesHelmValues: false,
+        ruleSelectorNilUsesHelmValues: false,
+        probeSelectorNilUsesHelmValues: false,
+        podMonitorSelectorNilUsesHelmValues: false,
         storageSpec: {
           volumeClaimTemplate: {
             spec: {
