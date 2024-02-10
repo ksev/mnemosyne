@@ -107,11 +107,12 @@ local container = {
       for port in ports
     ],
   },
-  mount: function(name, path, subPath='') {
+  mount: function(name, path, subPath='', readOnly=true) {
     volumeMounts+: [{
       [if std.isEmpty(subPath) then null else 'subPath']: subPath,
       name: name,
       mountPath: path,
+      readOnly: readOnly
     }],
   },
 };
