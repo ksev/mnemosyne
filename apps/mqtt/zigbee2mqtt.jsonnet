@@ -87,7 +87,7 @@ k.namespace.scope('mqtt', [
         },
       }],
       tls: [{
-        hosts: ['pihole.kotee.co'],
+        hosts: ['z2mqtt.kotee.co'],
         secretName: 'zigbee2mqtt-tls',
       }],
     },
