@@ -81,7 +81,7 @@ local containerMount = {
     volumeMounts+: [{
       name: name,
       mountPath: path,
-      subKey: key,
+      subPath: key,
     }],
   },
 };
