@@ -59,29 +59,31 @@ local volume = {
   configMap: function(name, items) {
     spec+: {
       template+: {
-        volumes+: [{
-          name: name,
-          configMap: {
+        spec+: {
+          volumes+: [{
             name: name,
-            items: [
-              { key: item, path: item}
-              for item in items
-            ]
-          } 
-        }]
-      }
-    }
-  }
+            configMap: {
+              name: name,
+              items: [
+                { key: item, path: item }
+                for item in items
+              ],
+            },
+          }],
+        },
+      },
+    },
+  },
 };
 
 local containerMount = {
   configMap: function(name, key, path) {
-    volumeMounts+:[{
+    volumeMounts+: [{
       name: name,
       path: path,
-      subKey: key
-    }]
-  }
+      subKey: key,
+    }],
+  },
 };
 
 local container = {
