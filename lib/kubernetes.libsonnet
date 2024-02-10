@@ -104,7 +104,7 @@ local container = {
 };
 
 local service = {
-  create: function(name, type='ClusterIP') {
+  create: function(name, ports, type='ClusterIP') {
     apiVersion: 'v1',
     kind: 'Service',
     metadata: {
@@ -112,6 +112,15 @@ local service = {
     },
     spec: {
       type: type,
+      ports: [
+        {
+          name: port.name,
+          port: port.port,
+          protocol: port.protocol,
+          targetPort: port.name,
+        }
+        for port in ports
+      ],
       selector: {
         app: name,
       },
@@ -121,19 +130,6 @@ local service = {
     spec+: {
       loadBalancerIP: ip
     }
-  },
-  ports: function(ports) {
-    spec+: {
-      ports+: [
-        {
-          name: port.name,
-          port: port.port,
-          protocol: port.protocol,
-          targetPort: port.name,
-        }
-        for port in ports
-      ],
-    },
   },
 };
 

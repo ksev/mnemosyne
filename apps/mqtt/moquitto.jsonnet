@@ -29,7 +29,6 @@ k.namespace.scope('mqtt', [
   ])
   + k.deployment.volume.configMap(configName, [fileName]),
 
-  k.service.create(name, type='LoadBalancer') 
-  + k.service.ports(ports) 
+  k.service.create(name, ports, type='LoadBalancer') 
   + k.service.staticIP('10.50.1.25'),
 ], create=true)
