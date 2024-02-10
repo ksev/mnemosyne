@@ -131,12 +131,11 @@ local container = {
       for port in ports
     ],
   },
-  mount: function(name, path, subPath='', readOnly=true) {
+  mount: function(name, path, subPath='') {
     volumeMounts+: [{
       [if std.isEmpty(subPath) then null else 'subPath']: subPath,
       name: name,
       mountPath: path,
-      readOnly: readOnly,
     }],
   },
 };
@@ -195,7 +194,7 @@ local busyBox(command) = {
   image: 'busybox:latest',
   command: ['sh', '-c'],
   args: [command]
-}
+};
 
 {
   namespace: namespace,
