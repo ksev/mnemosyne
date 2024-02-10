@@ -80,7 +80,7 @@ local containerMount = {
   configMap: function(name, key, path) {
     volumeMounts+: [{
       name: name,
-      path: path,
+      pathMount: path,
       subKey: key,
     }],
   },
