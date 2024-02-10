@@ -24,6 +24,7 @@ k.namespace.scope('mqtt', [
       },
       advanced: {
         network_key: 'GENERATE',
+        pan_id: 'GENERATE',
       },
     }),
   }),
