@@ -63,11 +63,10 @@ k.namespace.scope('mqtt', [
          name: '%s-gateway' % name,
           sectionName: 'mqtt' 
       }],
-      hostnames: ['mqtt.kotee.co'],
       rules: [{
         backendRefs: [{
           name: name,
-          port: 'mqtt'
+          port: 1883
         }]
       }]
     }
