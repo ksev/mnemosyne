@@ -24,6 +24,14 @@ local secretKey = 'pihole-admin-secret';
     revision='2.21.0',
     namespace='pihole',
     values={
+      DNS1: "1.1.1.1",
+      DNS2: "1.0.0.1",
+      podDnsConfig: {
+        nameservers: [
+          '127.0.0.1',
+          '1.1.1.1'
+        ]
+      },
       admin: {
         existingSecret: secretKey,
         passwordKey: 'password',
