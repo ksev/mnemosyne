@@ -1,45 +1,71 @@
-local ns(name) = {
-  apiVersion: 'v1',
-  kind: 'Namespace',
-  metadata: {
-    name: name,
-    labels: {
+local namespace = {
+  create: function(name) {
+    apiVersion: 'v1',
+    kind: 'Namespace',
+    metadata: {
       name: name,
+      labels: {
+        name: name,
+      },
     },
   },
+  scope: function(name, resources, create=false)
+    (if create then [namespace.create(name)] else []) + [
+      res { metadata+: { namespace: name } }
+      for res in resources
+    ],
 };
 
-local scoped(name, resources, create=false) =
-  (if create then [ns(name)] else []) + [
-    res { metadata+: { namespace: name } }
-    for res in resources
-  ];
-
-local deployment(name, containers, replicas=1, namespace='default') = {
-  apiVersion: 'apps/v1',
-  kind: 'Deployment',
-  metadata: {
-    name: '%s-deployment' % name,
-    namespace: namespace,
-  },
-  spec: {
-    replicas: replicas,
-    selector: {
-      matchLabels: {
+local deployment = {
+  create: function(name, containers, replicas=1, namespace='default') {
+    apiVersion: 'apps/v1',
+    kind: 'Deployment',
+    metadata: {
+      name: name,
+      namespace: namespace,
+      labels: {
         app: name,
       },
     },
-    template: {
-      metadata: {
-        labels: {
+    spec: {
+      replicas: replicas,
+      selector: {
+        matchLabels: {
           app: name,
         },
       },
-      spec: {
-        containers: [
-          { name: name } + c
-          for c in containers
-        ],
+      template: {
+        metadata: {
+          labels: {
+            app: name,
+          },
+        },
+        spec: {
+          containers: [
+            { name: name } + c
+            for c in containers
+          ],
+        },
+      },
+    },
+  },
+  volume: {
+    configMap: function(name, items) {
+      spec+: {
+        template+: {
+          spec+: {
+            volumes+: [{
+              name: name,
+              configMap: {
+                name: name,
+                items: [
+                  { key: item, path: item }
+                  for item in items
+                ],
+              },
+            }],
+          },
+        },
       },
     },
   },
@@ -55,50 +81,59 @@ local configMap(name, data, namespace='default') = {
   data: data,
 };
 
-local volume = {
-  configMap: function(name, items) {
-    spec+: {
-      template+: {
-        spec+: {
-          volumes+: [{
-            name: name,
-            configMap: {
-              name: name,
-              items: [
-                { key: item, path: item }
-                for item in items
-              ],
-            },
-          }],
-        },
-      },
+local container = {
+  ports: function(ports) {
+    ports+: [
+      {
+        containerPort: port.port,
+        name: port.name,
+        protocol: port.protocol,
+      }
+      for port in ports
+    ],
+  },
+  mount: {
+    configMap: function(name, key, path) {
+      volumeMounts+: [{
+        name: name,
+        mountPath: path,
+        subPath: key,
+      }],
     },
   },
 };
 
-local containerMount = {
-  configMap: function(name, key, path) {
-    volumeMounts+: [{
+local service = {
+  create: function(name, type='ClusterIP') {
+    apiVersion: 'v1',
+    kind: 'Service',
+    metadata: {
       name: name,
-      mountPath: path,
-      subPath: key,
-    }],
+    },
+    spec: {
+      type: 'ClusterIP',
+      selector: {
+        app: name,
+      },
+    },
   },
-};
-
-local container = {
   ports: function(ports) {
-    ports+: [
-      { containerPort: port }
-      for port in ports
-    ],
+    spec+: {
+      ports+: [
+        {
+          name: port.name,
+          port: port.port,
+          protocol: port.protocol,
+          targetPort: port.name,
+        }
+        for port in ports
+      ],
+    },
   },
-  mount: containerMount,
 };
 
 local env = {
   item: function(name, value)
-
     {
       name: name,
     }
@@ -116,12 +151,12 @@ local env = {
   },
 };
 
+
 {
-  env: env,
-  ns: ns,
-  scoped: scoped,
+  namespace: namespace,
   deployment: deployment,
   container: container,
+  env: env,
   configMap: configMap,
-  volume: volume,
+  service: service,
 }

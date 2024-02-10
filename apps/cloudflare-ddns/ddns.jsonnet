@@ -5,11 +5,12 @@ local k = import 'kubernetes.libsonnet';
 local name = 'cloudflare-ddns';
 local secretName = '%s-token' % name;
 
-[
-  onePassword.item('Cloudflare', secretName, namespace='pihole') 
+k.namespace.scope('pihole', [
+  onePassword.item('Cloudflare', secretName) 
   + argocd.syncWave(-1),
-  k.deployment(name, [{
-    image: 'favonia/cloudflare-ddns:latest',
+  
+  k.deployment.create(name, [{
+    image: 'favonia/cloudflare-ddns:latest', 
     env: [
       k.env.item('PROXIED', false),
       k.env.item('DOMAINS', 'kotee.co'),
@@ -17,6 +18,6 @@ local secretName = '%s-token' % name;
         name: secretName,
         key: 'password',
       }),
-    ],
-  }], namespace='pihole'),
-]
+    ]
+  }])
+])
