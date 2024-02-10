@@ -33,7 +33,7 @@ k.namespace.scope('mqtt', [
     + k.container.mount.configMap(
       configName,
       configFile,
-      '/app/data/%s' % configFile
+      '/app/%s' % configFile
     ),
   ])
   + k.deployment.volume.configMap(configName, [configFile]),

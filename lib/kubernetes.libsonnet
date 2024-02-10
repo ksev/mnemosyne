@@ -57,7 +57,6 @@ local deployment = {
             volumes+: [{
               name: name,
               configMap: {
-                defaultMode: std.parseOctal('0755'),
                 name: name,
                 items: [
                   { key: item, path: item }
