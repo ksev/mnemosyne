@@ -40,7 +40,7 @@ local appRepo(name, url, path, namespace='default') =
       },
   };
 
-local appFolder(name, path, namespace='default') =
+local appFolder(name, path='apps/%s' % name, namespace='default') =
   appRepo(name, 'https://github.com/ksev/mnemosyne.git', path, namespace);
 
 local appHelm(name, repo, chart=name, revision='HEAD', namespace='default', values={}) =

@@ -1,5 +1,6 @@
 local argocd = import 'argocd.libsonnet';
 
 [
-  argocd.appFolder('cloudflare-ddns', 'apps/ddns/')
+  argocd.appFolder(app),
+  for app in ['cloudflare-ddns', 'mqtt']
 ]
