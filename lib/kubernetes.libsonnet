@@ -112,7 +112,7 @@ local container = {
       [if std.isEmpty(subPath) then null else 'subPath']: subPath,
       name: name,
       mountPath: path,
-      readOnly: readOnly
+      readOnly: readOnly,
     }],
   },
 };
