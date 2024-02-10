@@ -5,17 +5,17 @@ local name = 'mosquitto';
 local configName = 'mosquitto-conf';
 local fileName = 'mosquitto.conf';
 
-local ports = [{ 
-  port: 1883, 
-  name: 'mqtt', 
-  protocol: 'TCP' 
+local ports = [{
+  port: 1883,
+  name: 'mqtt',
+  protocol: 'TCP',
 }];
 
 k.namespace.scope('mqtt', [
   k.configMap(configName, {
     [fileName]: importstr 'mosquitto.conf',
   }),
-  
+
   k.deployment.create(name, [
     {
       image: 'eclipse-mosquitto:latest',
@@ -45,30 +45,30 @@ k.namespace.scope('mqtt', [
         port: 1883,
         allowedRoutes: {
           kinds: [{
-            kind: 'TCPRoute'
-          }]
-        }
-      }]
-    }
+            kind: 'TCPRoute',
+          }],
+        },
+      }],
+    },
   },
 
   {
     apiVersion: 'gateway.networking.k8s.io/v1alpha2',
     kind: 'TCPRoute',
     metadata: {
-      name: 'mqtt-tcp-route',      
+      name: 'mqtt-tcp-route',
     },
     spec: {
       parentRefs: [{
-         name: '%s-gateway' % name,
-          sectionName: 'mqtt' 
+        name: '%s-gateway' % name,
+        sectionName: 'mqtt',
       }],
       rules: [{
         backendRefs: [{
           name: name,
-          port: 1883
-        }]
-      }]
-    }
-  }
+          port: 1883,
+        }],
+      }],
+    },
+  },
 ], create=true)
