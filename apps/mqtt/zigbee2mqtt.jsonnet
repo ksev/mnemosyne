@@ -9,7 +9,7 @@ local ports = [{
 local configName = 'zigbee2mqtt-config';
 local configFile = 'configuration.yaml';
 
-[
+k.namespace.scope('mqtt', [
   k.configMap(configName, {
     [configFile]: std.manifestYamlDoc({
       mqtt: {
@@ -39,5 +39,5 @@ local configFile = 'configuration.yaml';
   + k.deployment.volume.configMap(configName, [configFile]),
 
   k.service.create('zigbee2mqtt', ports) 
-]
+])
 
