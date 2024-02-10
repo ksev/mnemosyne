@@ -14,7 +14,7 @@ k.namespace.scope('mqtt', [
     [configFile]: std.manifestYamlDoc({
       mqtt: {
         base_topic: 'zigbee2mqtt',
-        server: 'mqtt://mqtt.mqtt.svc.cluster.local',
+        server: 'mqtt://mosquitto',
       },
       serial: {
         port: 'tcp://192.168.2.154:6638',
