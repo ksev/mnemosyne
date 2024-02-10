@@ -48,7 +48,8 @@ k.namespace.scope('mqtt', [
     + k.container.ports(ports) 
     + k.container.mount(configName, '/app/data/%s' % configFile, subPath=configFile)
   ])
-  + k.deployment.volume.configMap(configName, [configFile]),
+  + k.deployment.volume.configMap(configName, [configFile])
+  + k.deployment.volume.pvc('zigbee2mqtt-data'),
 
   k.service.create('zigbee2mqtt', ports) 
 ])

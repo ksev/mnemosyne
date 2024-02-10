@@ -65,6 +65,21 @@ local deployment = {
         },
       },
     },
+    pvc: function(name, readOnly=false) {
+      spec+: {
+        template+: {
+          spec+:{
+            volumes+: [{
+              name: name,
+              persistentVolumeClaim: {
+                claimName: name,
+                readOnly: readOnly,
+              }
+            }]
+          }
+        }
+      }
+    },
     configMap: function(name, items) {
       spec+: {
         template+: {
