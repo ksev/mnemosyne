@@ -49,9 +49,9 @@ k.namespace.scope('mqtt', [
     + k.container.mount('zigbee2mqtt-data', '/app/data/'),
   ])
   + k.deployment.initContainers([
-    k.busyBox('mv /tmp/%s /app/data/' % configFile)
+    k.busyBox('mv /whatevs/%s /app/data/' % configFile)
     + k.container.mount('zigbee2mqtt-data', '/app/data/')
-    + k.container.mount(configName, '/tmp/%s' % configFile, subPath=configFile),
+    + k.container.mount(configName, '/whatevs/%s' % configFile, subPath=configFile),
   ])
   + k.deployment.volume.configMap(configName, [configFile])
   + k.deployment.volume.pvc('zigbee2mqtt-data'),
