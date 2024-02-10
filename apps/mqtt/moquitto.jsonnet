@@ -29,46 +29,7 @@ k.namespace.scope('mqtt', [
   ])
   + k.deployment.volume.configMap(configName, [fileName]),
 
-  k.service.create(name) + k.service.ports(ports),
-
-  {
-    apiVersion: 'gateway.networking.k8s.io/v1',
-    kind: 'Gateway',
-    metadata: {
-      name: '%s-gateway' % name,
-    },
-    spec: {
-      gatewayClassName: 'cilium',
-      listeners: [{
-        name: 'mqtt',
-        protocol: 'TCP',
-        port: 1883,
-        allowedRoutes: {
-          kinds: [{
-            kind: 'TCPRoute',
-          }],
-        },
-      }],
-    },
-  },
-
-  {
-    apiVersion: 'gateway.networking.k8s.io/v1alpha2',
-    kind: 'TCPRoute',
-    metadata: {
-      name: 'mqtt-tcp-route',
-    },
-    spec: {
-      parentRefs: [{
-        name: '%s-gateway' % name,
-        sectionName: 'mqtt',
-      }],
-      rules: [{
-        backendRefs: [{
-          name: name,
-          port: 1883,
-        }],
-      }],
-    },
-  },
+  k.service.create(name, type='LoadBalancer') 
+  + k.service.ports(ports) 
+  + k.service.staticIP('10.50.1.25'),
 ], create=true)

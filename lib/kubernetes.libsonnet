@@ -111,11 +111,16 @@ local service = {
       name: name,
     },
     spec: {
-      type: 'ClusterIP',
+      type: type,
       selector: {
         app: name,
       },
     },
+  },
+  staticIP: function(ip) {
+    spec+: {
+      loadBalancerIP: ip
+    }
   },
   ports: function(ports) {
     spec+: {
