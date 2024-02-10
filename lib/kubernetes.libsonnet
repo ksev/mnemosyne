@@ -49,6 +49,15 @@ local deployment = {
       },
     },
   },
+  initContainers: function(containers) {
+    spec+: {
+      template+:{
+        spec+:{
+          initContainers+: containers
+        }
+      }
+    }
+  },
   volume: {
     hostPath: function(name, path, type='') {
       spec+: {
@@ -181,6 +190,12 @@ local env = {
   },
 };
 
+local busyBox(command) = {
+  name: 'busybox',
+  image: 'busybox:latest',
+  command: ['sh', '-c'],
+  args: [command]
+}
 
 {
   namespace: namespace,
@@ -189,4 +204,5 @@ local env = {
   env: env,
   configMap: configMap,
   service: service,
+  busyBox: busyBox
 }

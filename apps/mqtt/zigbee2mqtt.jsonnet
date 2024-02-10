@@ -3,7 +3,7 @@ local k = import 'kubernetes.libsonnet';
 local ports = [{
   port: 80,
   protocol: 'TCP',
-  name: 'http'
+  name: 'http',
 }];
 
 local configName = 'zigbee2mqtt-config';
@@ -14,17 +14,17 @@ k.namespace.scope('mqtt', [
     [configFile]: std.manifestYamlDoc({
       mqtt: {
         base_topic: 'zigbee2mqtt',
-        server: 'mqtt://mqtt.mqtt.svc.cluster.local'
+        server: 'mqtt://mqtt.mqtt.svc.cluster.local',
       },
       serial: {
-        port: 'tcp://192.168.2.154:6638'
+        port: 'tcp://192.168.2.154:6638',
       },
       frontend: {
-        port: 80
+        port: 80,
       },
       advanced: {
-        network_key: 'GENERATE'
-      }
+        network_key: 'GENERATE',
+      },
     }),
   }),
   {
@@ -38,19 +38,23 @@ k.namespace.scope('mqtt', [
       accessModes: ['ReadWriteOnce'],
       resources: {
         requests: {
-          storage: '3Gi'
-        }
-      }
-    }
+          storage: '3Gi',
+        },
+      },
+    },
   },
   k.deployment.create('zigbee2mqtt', [
     { image: 'koenkk/zigbee2mqtt' }
-    + k.container.ports(ports) 
-    + k.container.mount(configName, '/app/data/%s' % configFile, subPath=configFile)
+    + k.container.ports(ports)
+    + k.container.mount('zigbee2mqtt-data', '/app/data/'),
+  ])
+  + k.deployment.initContainers([
+    k.busyBox('mv /tmp/%s /app/data/' % configFile)
+    + k.container.mount('zigbee2mqtt-data', '/app/data/')
+    + k.container.mount(configName, '/tmp/%s' % configFile, subPath=configFile),
   ])
   + k.deployment.volume.configMap(configName, [configFile])
   + k.deployment.volume.pvc('zigbee2mqtt-data'),
 
-  k.service.create('zigbee2mqtt', ports) 
+  k.service.create('zigbee2mqtt', ports),
 ])
-
