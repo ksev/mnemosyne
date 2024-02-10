@@ -34,7 +34,7 @@ k.namespace.scope('mqtt', [
     + k.container.mount('serial', '/dev/ttyACM0')
   ])
   + k.deployment.volume.configMap(configName, [configFile])
-  + k.deployment.volume.hostPath('serial', '/dev/ttyACM0'),
+  + k.deployment.volume.hostPath('serial', '/dev/ttyACM0', type='File'),
 
   k.service.create('zigbee2mqtt', ports) 
 ])

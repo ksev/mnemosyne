@@ -50,13 +50,14 @@ local deployment = {
     },
   },
   volume: {
-    hostPath: function(name, path) {
+    hostPath: function(name, path, type='') {
       spec+: {
         template+: {
           spec+: {
             volumes+: [{
               name: name,
               hostPath: {
+                type: type,
                 path: path,
               },
             }],
