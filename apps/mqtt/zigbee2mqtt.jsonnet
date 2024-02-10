@@ -27,10 +27,26 @@ k.namespace.scope('mqtt', [
       }
     }),
   }),
+  {
+    apiVersion: 'v1',
+    kind: 'PersistentVolumeClaim',
+    metadata: {
+      name: 'zigbee2mqtt-data',
+    },
+    spec: {
+      storageClassName: 'local-path',
+      accessModes: ['ReadWriteOnce'],
+      resources: {
+        requests: {
+          storage: '3Gi'
+        }
+      }
+    }
+  },
   k.deployment.create('zigbee2mqtt', [
     { image: 'koenkk/zigbee2mqtt' }
     + k.container.ports(ports) 
-    + k.container.mount(configName, '/app/data/%s' % configFile, subPath=configFile, readOnly=false)
+    + k.container.mount(configName, '/app/data/%s' % configFile, subPath=configFile)
   ])
   + k.deployment.volume.configMap(configName, [configFile]),
 
