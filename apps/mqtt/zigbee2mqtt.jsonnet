@@ -30,13 +30,11 @@ k.namespace.scope('mqtt', [
   k.deployment.create('zigbee2mqtt', [
     { image: 'koenkk/zigbee2mqtt' }
     + k.container.ports(ports) 
-    + k.container.mount.configMap(
-      configName,
-      configFile,
-      '/app/%s' % configFile
-    ),
+    + k.container.mount(configName, '/app/%s' % configFile, subPath=configFile)
+    + k.container.mount('serial', '/dev/ttyACM0')
   ])
-  + k.deployment.volume.configMap(configName, [configFile]),
+  + k.deployment.volume.configMap(configName, [configFile])
+  + k.deployment.volume.hostPath('serial', '/dev/ttyACM0'),
 
   k.service.create('zigbee2mqtt', ports) 
 ])

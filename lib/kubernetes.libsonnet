@@ -50,6 +50,20 @@ local deployment = {
     },
   },
   volume: {
+    hostPath: function(name, path) {
+      spec+: {
+        template+: {
+          spec+: {
+            volumes+: [{
+              name: name,
+              hostPath: {
+                path: path,
+              },
+            }],
+          },
+        },
+      },
+    },
     configMap: function(name, items) {
       spec+: {
         template+: {
@@ -92,14 +106,12 @@ local container = {
       for port in ports
     ],
   },
-  mount: {
-    configMap: function(name, key, path) {
-      volumeMounts+: [{
-        name: name,
-        mountPath: path,
-        subPath: key,
-      }],
-    },
+  mount: function(name, path, subPath='') {
+    volumeMounts+: [{
+      [if std.isEmpty(subPath) then null else 'subPath']: subPath,
+      name: name,
+      mountPath: path,
+    }],
   },
 };
 
@@ -128,8 +140,8 @@ local service = {
   },
   staticIP: function(ip) {
     spec+: {
-      loadBalancerIP: ip
-    }
+      loadBalancerIP: ip,
+    },
   },
 };
 

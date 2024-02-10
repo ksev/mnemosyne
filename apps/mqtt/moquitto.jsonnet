@@ -21,14 +21,14 @@ k.namespace.scope('mqtt', [
       image: 'eclipse-mosquitto:latest',
     }
     + k.container.ports(ports)
-    + k.container.mount.configMap(
+    + k.container.mount(
       configName,
-      fileName,
-      '/mosquitto/config/%s' % fileName
+      '/mosquitto/config/%s' % fileName,
+      subPath=fileName
     ),
   ])
   + k.deployment.volume.configMap(configName, [fileName]),
 
-  k.service.create(name, ports, type='LoadBalancer') 
+  k.service.create(name, ports, type='LoadBalancer')
   + k.service.staticIP('10.50.1.25'),
 ], create=true)
