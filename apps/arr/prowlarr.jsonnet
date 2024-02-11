@@ -1,4 +1,3 @@
-local onePassword = import '1password.libsonnet';
 local k = import 'kubernetes.libsonnet';
 
 local storageName = 'prowlarr-storage';
@@ -9,8 +8,6 @@ local ports = [
 ];
 
 k.namespace.scope('arr', [
-  onePassword.item('prowlarr-secret', 'Prowlarr'),
-
   k.pvc(storageName, '5Gi'),
 
   k.deployment.create('prowlarr', [
@@ -18,17 +15,8 @@ k.namespace.scope('arr', [
     + k.container.ports(ports)
     + k.container.mount(storageName, '/config')
     + k.container.liveHttp({
-      path: '/api/v1/health',
+      path: '/login',
       port: 9696,
-      httpHeaders: [{
-        name: 'X-Api-Key',
-        valueFrom: {
-          secretKeyRef: {
-            name: 'prowlarr-secret',
-            key: 'apiKey',
-          },
-        },
-      }],
     }),
   ])
   + k.deployment.volume.pvc(storageName),
