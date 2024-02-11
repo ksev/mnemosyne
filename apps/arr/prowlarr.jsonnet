@@ -10,6 +10,6 @@ local argocd = import 'argocd.libsonnet';
         enabled: true,
       },
     },
-    namespace=''
+    namespace='arr'
   ),
 ]
