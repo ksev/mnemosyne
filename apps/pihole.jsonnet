@@ -1,5 +1,6 @@
 local onePassword = import '1password.libsonnet';
 local argocd = import 'argocd.libsonnet';
+local k = import 'kubernetes.libsonnet';
 
 local blocklists = [
   'https://blocklistproject.github.io/Lists/%s.txt' % list
@@ -18,6 +19,7 @@ local secretKey = 'pihole-admin-secret';
 
 [
   onePassword.item('PiHole Admin', secretKey, namespace='pihole'),
+
   argocd.appHelm(
     'pihole',
     'https://mojo2600.github.io/pihole-kubernetes/',
@@ -48,39 +50,17 @@ local secretKey = 'pihole-admin-secret';
       adlists: blocklists,
     }
   ),
-  {
-    apiVersion: 'networking.k8s.io/v1',
-    kind: 'Ingress',
-    metadata: {
-      annotations: {
-        'cert-manager.io/cluster-issuer': 'letsencrypt-issuer',
-      },
-      name: 'pihole',
-      namespace: 'pihole',
-    },
-    spec: {
-      ingressClassName: 'cilium',
-      rules: [{
-        host: 'pihole.kotee.co',
-        http: {
-          paths: [{
-            path: '/',
-            pathType: 'Prefix',
-            backend: {
-              service: {
-                name: 'pihole-web',
-                port: {
-                  name: 'http',
-                },
-              },
-            },
-          }],
-        },
-      }],
-      tls: [{
-        hosts: ['pihole.kotee.co'],
-        secretName: 'pihole-tls',
-      }],
-    },
-  },
+
+  k.ingress.enableTLS(
+    k.ingress.create('pihole', [
+      k.ingress.rule(
+        'pihole.kotee.co',
+        [{
+          path: '/',
+          pathType: 'Prefix',
+          backend: k.ingress.service('pihole-web', 'http'),
+        }]
+      ),
+    ], namespace='pihole')
+  ),
 ]

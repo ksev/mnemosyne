@@ -51,12 +51,12 @@ local deployment = {
   },
   initContainers: function(containers) {
     spec+: {
-      template+:{
-        spec+:{
-          initContainers+: containers
-        }
-      }
-    }
+      template+: {
+        spec+: {
+          initContainers+: containers,
+        },
+      },
+    },
   },
   volume: {
     hostPath: function(name, path, type='') {
@@ -77,17 +77,17 @@ local deployment = {
     pvc: function(name, readOnly=false) {
       spec+: {
         template+: {
-          spec+:{
+          spec+: {
             volumes+: [{
               name: name,
               persistentVolumeClaim: {
                 claimName: name,
                 readOnly: readOnly,
-              }
-            }]
-          }
-        }
-      }
+              },
+            }],
+          },
+        },
+      },
     },
     configMap: function(name, items) {
       spec+: {
@@ -170,6 +170,54 @@ local service = {
   },
 };
 
+local ingress = {
+  create: function(name, rules, namespace='default') {
+    apiVersion: 'networking.k8s.io/v1',
+    kind: 'Ingress',
+    metadata: {
+      name: name,
+      namespace: namespace,
+    },
+    spec: {
+      ingressClassName: 'cilium',
+      rules: rules,
+    },
+  },
+
+  rule: function(host, paths) {
+    host: host,
+    http: {
+      paths: paths,
+    },
+  },
+
+  service: function(name, port) {
+    service: {
+      name: name,
+      port: {
+        name: port,
+      },
+    },
+  },
+
+  enableTLS: function(ing)
+    assert ing.kind == 'Ingress';
+    local hosts = std.map(function(rule) rule.host, ing.spec.rules);
+    ing {
+      metadata+: {
+        annotations+: {
+          'cert-manager.io/cluster-issuer': 'letsencrypt-issuer',
+        },
+      },
+      spec+: {
+        tls+: [{
+          hosts: hosts,
+          secretName: '%s-tls' % ing.metadata.name,
+        }],
+      },
+    },
+};
+
 local env = {
   item: function(name, value)
     {
@@ -193,7 +241,7 @@ local busyBox(command) = {
   name: 'busybox',
   image: 'busybox:latest',
   command: ['sh', '-c'],
-  args: [command]
+  args: [command],
 };
 
 {
@@ -203,5 +251,6 @@ local busyBox(command) = {
   env: env,
   configMap: configMap,
   service: service,
-  busyBox: busyBox
+  busyBox: busyBox,
+  ingress: ingress,
 }

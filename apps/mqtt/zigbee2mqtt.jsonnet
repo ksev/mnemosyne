@@ -59,38 +59,16 @@ k.namespace.scope('mqtt', [
 
   k.service.create('zigbee2mqtt', ports),
 
-  {
-    apiVersion: 'networking.k8s.io/v1',
-    kind: 'Ingress',
-    metadata: {
-      annotations: {
-        'cert-manager.io/cluster-issuer': 'letsencrypt-issuer',
-      },
-      name: 'zigbee2mqtt',
-    },
-    spec: {
-      ingressClassName: 'cilium',
-      rules: [{
-        host: 'z2mqtt.kotee.co',
-        http: {
-          paths: [{
-            path: '/',
-            pathType: 'Prefix',
-            backend: {
-              service: {
-                name: 'zigbee2mqtt',
-                port: {
-                  name: 'http',
-                },
-              },
-            },
-          }],
-        },
-      }],
-      tls: [{
-        hosts: ['z2mqtt.kotee.co'],
-        secretName: 'zigbee2mqtt-tls',
-      }],
-    },
-  },
+  k.ingress.enableTLS(
+    k.ingress.create('zigbee2mqtt', [
+      k.ingress.rule(
+        'z2mqtt.kotee.co',
+        [{
+          path: '/',
+          pathType: 'Prefix',
+          backend: k.ingress.service('zigbee2mqtt', 'http'),
+        }]
+      ),
+    ])
+  ),
 ])
