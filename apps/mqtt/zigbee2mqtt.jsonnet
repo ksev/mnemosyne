@@ -1,10 +1,6 @@
 local k = import 'kubernetes.libsonnet';
 
-local ports = [{
-  port: 80,
-  protocol: 'TCP',
-  name: 'http',
-}];
+local ports = [k.ports.http];
 
 local configName = 'zigbee2mqtt-config';
 local configFile = 'configuration.yaml';

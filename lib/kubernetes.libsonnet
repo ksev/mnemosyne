@@ -255,6 +255,14 @@ local pvc(name, storage, accessMode='ReadWriteOnce', namespace='default') = {
   },
 };
 
+local ports = {
+  http: {
+    port: 80,
+    name: 'http',
+    protocol: 'TCP'
+  }
+};
+
 local busyBox(command) = {
   name: 'busybox',
   image: 'busybox:latest',
@@ -268,6 +276,7 @@ local busyBox(command) = {
   container: container,
   env: env,
   pvc: pvc,
+  ports: ports,
   configMap: configMap,
   service: service,
   busyBox: busyBox,
