@@ -237,6 +237,24 @@ local env = {
   },
 };
 
+local pvc(name, storage, accessMode='ReadWriteOnce', namespace='default') = {
+  apiVersion: 'v1',
+  kind: 'PersistentVolumeClaim',
+  metadata: {
+    name: name,
+    namespace: namespace,
+  },
+  spec: {
+    storageClassName: 'local-path',
+    accessModes: [accessMode],
+    resources: {
+      requests: {
+        storage: storage,
+      },
+    },
+  },
+};
+
 local busyBox(command) = {
   name: 'busybox',
   image: 'busybox:latest',
@@ -249,6 +267,7 @@ local busyBox(command) = {
   deployment: deployment,
   container: container,
   env: env,
+  pvc: pvc,
   configMap: configMap,
   service: service,
   busyBox: busyBox,
