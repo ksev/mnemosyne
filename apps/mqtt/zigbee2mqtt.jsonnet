@@ -50,7 +50,7 @@ k.namespace.scope('mqtt', [
     + k.container.mount('zigbee2mqtt-data', '/app/data/'),
   ])
   + k.deployment.initContainers([
-    k.busyBox('cp /tmp/%s /app/data/' % configFile)
+    k.busyBox('cp -n /tmp/%s /app/data/' % configFile)
     + k.container.mount('zigbee2mqtt-data', '/app/data/')
     + k.container.mount(configName, '/tmp/%s' % configFile, subPath=configFile),
   ])
