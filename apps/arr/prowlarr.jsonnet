@@ -17,5 +17,18 @@ k.namespace.scope('arr',[
   ])
   + k.deployment.volume.pvc(storageName),
 
-  k.service.create('prowlarr', ports)
+  k.service.create('prowlarr', ports),
+  
+  k.ingress.enableTLS(
+    k.ingress.create('prowlarr', [
+      k.ingress.rule(
+        'prowlarr.kotee.co',
+        [{
+          path: '/',
+          pathType: 'Prefix',
+          backend: k.ingress.service('prowlarr', 'http'),
+        }]
+      ),
+    ])
+  ),
 ])
