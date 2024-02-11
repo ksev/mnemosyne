@@ -6,7 +6,7 @@ local name = 'cloudflare-ddns';
 local secretName = '%s-token' % name;
 
 k.namespace.scope('pihole', [
-  onePassword.item('Cloudflare', secretName) 
+  onePassword.item(secretName, 'Cloudflare') 
   + argocd.syncWave(-1),
   
   k.deployment.create(name, [{

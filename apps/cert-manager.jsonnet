@@ -4,7 +4,7 @@ local argocd = import 'argocd.libsonnet';
 local secretName = 'cloudflare-api-token-secret';
 
 [
-  onePassword.item('Cloudflare', secretName, namespace='cert-manager'),
+  onePassword.item(secretName, 'Cloudflare', namespace='cert-manager'),
   argocd.appHelm(
     'cert-manager',
     'https://charts.jetstack.io',

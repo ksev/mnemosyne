@@ -18,7 +18,7 @@ local blocklists = [
 local secretKey = 'pihole-admin-secret';
 
 [
-  onePassword.item('PiHole Admin', secretKey, namespace='pihole'),
+  onePassword.item(secretKey, 'PiHole Admin', namespace='pihole'),
 
   argocd.appHelm(
     'pihole',
