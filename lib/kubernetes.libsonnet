@@ -138,6 +138,14 @@ local container = {
       mountPath: path,
     }],
   },
+
+  liveHttp: function(rule, delay=3, period=3){
+    livenessProbe: {
+      httpGet: rule,
+      initialDelaySeconds: delay,
+      periodSeconds: period
+    },
+  }
 };
 
 local service = {
