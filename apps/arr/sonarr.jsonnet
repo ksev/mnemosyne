@@ -18,7 +18,13 @@ k.namespace.scope('arr', [
     + k.container.mount(storageName, '/config')
     + k.container.mount(
       'nas',
-      '/storage',
+      '/downloads',
+			subPath='/Downloads'
+    )
+    + k.container.mount(
+      'nas',
+      '/tv',
+			subPath='/Media/tv'
     ),
   ])
   + k.deployment.volume.pvc(storageName)
