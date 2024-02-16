@@ -26,13 +26,13 @@ k.namespace.scope('arr', [
     { image: 'lscr.io/linuxserver/transmission:latest' }
     + k.container.ports(ports)
     + k.container.mount(storageName, '/config') 
-    + k.container.mount('downloads', '/downloads') 
+    + k.container.mount('downloads', '/downloads', subPath='Downloads/torrent') 
   ])
   + k.deployment.volume.pvc(storageName)
   + k.deployment.volume.nfs(
     'downloads',
     '192.168.1.62',
-    '/Downloads/torrent'
+    '/'
   ),
 
   k.service.create(name, ports),
