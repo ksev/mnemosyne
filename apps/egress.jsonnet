@@ -15,10 +15,10 @@
     egressGateway: {
       nodeSelector: {
         matchLabels: {
-          'node.kubernetes.io/name': 'localhost.localdomain',
+          'kubernetes.io/hostname': 'localhost.localdomain'
         },
       },
-      egressIP: '192.168.5.64',
+      interface: 'team0.5'
     },
     destinationCIDRs: [
       '0.0.0.0/0',
