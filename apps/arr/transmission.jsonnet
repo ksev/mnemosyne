@@ -1,7 +1,6 @@
 local onePassword = import '1password.libsonnet';
 local k = import 'kubernetes.libsonnet';
 
-
 local name = 'transmission';
 local storageName = '%s-storage' % name;
 local secret = '%s-login' % name;
