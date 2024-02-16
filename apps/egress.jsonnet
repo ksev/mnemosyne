@@ -18,7 +18,7 @@
           'node.kubernetes.io/name': 'localhost.localdomain',
         },
       },
-      interface: 'team0.5',
+      egressIP: '192.168.5.64',
     },
     destinationCIDRs: [
       '0.0.0.0/0',

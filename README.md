@@ -15,7 +15,7 @@ Split into two types of server
 2. Stand up k3s cluster on one machine, 
 3. Install Cilium in cluster
 ```shell
-$: cilium install --set=ipam.operator.clusterPoolIPv4PodCIDRList=10.42.0.0/16 --set kubeProxyReplacement=true --set ingressController.enabled=true --set gatewayAPI.enabled=true  --set prometheus.enabled=true --set operator.prometheus.enabled=true --set hubble.enabled=true --set hubble.metrics.enableOpenMetrics=true --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction}" --set hubble.relay.enabled=true --set hubble.ui.enabled=true --version=1.15.0 --set device=team0 --set bgpControlPlane.enabled=true --set egressGateway.enabled=true --set k8sServiceHost=192.168.1.62 --set k8sServicePort=6443
+$: cilium install --set=ipam.operator.clusterPoolIPv4PodCIDRList=10.42.0.0/16 --set kubeProxyReplacement=true --set ingressController.enabled=true --set gatewayAPI.enabled=true  --set prometheus.enabled=true --set operator.prometheus.enabled=true --set hubble.enabled=true --set hubble.metrics.enableOpenMetrics=true --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction}" --set hubble.relay.enabled=true --set hubble.ui.enabled=true --version=1.15.0 --set device=team0 --set bgpControlPlane.enabled=true --set bpf.masquerade=true --set egressGateway.enabled=true --set k8sServiceHost=192.168.1.62 --set k8sServicePort=6443
 ```
 
 4. Apply cilium config from the cilium folder
