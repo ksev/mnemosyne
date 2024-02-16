@@ -38,5 +38,5 @@ k.namespace.scope('arr', [
     '/Downloads/'
   ),
 
-  k.service.create(name, ports),
+  k.service.create(name, ports, type='LoadBalancer'),
 ])
