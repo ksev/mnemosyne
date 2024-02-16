@@ -42,7 +42,7 @@ k.namespace.scope('arr', [
     }
     + k.container.ports(ports)
     + k.container.mount(storageName, '/config')
-    + k.container.mountNAS('/downloads', 'Downloads')
+    + k.container.mountNAS('Downloads', '/downloads')
   ])
   + k.deployment.podLabel('vpn', 'proton')
   + k.deployment.volume.pvc(storageName)

@@ -16,8 +16,8 @@ k.namespace.scope('arr', [
     { image: 'lscr.io/linuxserver/sonarr:latest' }
     + k.container.ports(ports)
     + k.container.mount(storageName, '/config')
-    + k.container.mountNAS('/downloads', 'Downloads')
-    + k.container.mountNAS('/tv', 'Media/tv'),
+    + k.container.mountNAS('Downloads', '/downloads')
+    + k.container.mountNAS('Media/tv', '/tv'),
   ])
   + k.deployment.volume.pvc(storageName)
   + k.deployment.volume.nas,
