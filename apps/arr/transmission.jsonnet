@@ -29,7 +29,7 @@ k.namespace.scope('arr', [
     + k.container.mount(
       'abc123', 
       '/downloads', 
-      subPath='./Downloads/torrent'
+      subPath='Downloads/torrent/'
     ) 
   ])
   + k.deployment.volume.pvc(storageName)
