@@ -49,6 +49,17 @@ local deployment = {
       },
     },
   },
+  podLabel: function(name, value) {
+    spec+:{
+      template+:{
+        metadata+:{
+          labels+: {
+            [name]: value
+          }
+        }
+      }
+    }
+  },
   initContainers: function(containers) {
     spec+: {
       template+: {
@@ -105,6 +116,11 @@ local deployment = {
         },
       },
     },
+    nas: deployment.volume.nfs(
+      'nas',
+      '192.168.1.62',
+      '/'
+    ),
     configMap: function(name, items) {
       spec+: {
         template+: {
@@ -154,14 +170,19 @@ local container = {
       mountPath: path,
     }],
   },
-
-  liveHttp: function(rule, delay=3, period=3){
+  mountNAS: function(localPath, remotePath)
+    container.mount(
+      'nas',
+      remotePath,
+      subPath=localPath
+    ),
+  liveHttp: function(rule, delay=3, period=3) {
     livenessProbe: {
       httpGet: rule,
       initialDelaySeconds: delay,
-      periodSeconds: period
+      periodSeconds: period,
     },
-  }
+  },
 };
 
 local service = {
@@ -283,8 +304,8 @@ local ports = {
   http: {
     port: 80,
     name: 'http',
-    protocol: 'TCP'
-  }
+    protocol: 'TCP',
+  },
 };
 
 local busyBox(command) = {

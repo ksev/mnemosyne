@@ -42,17 +42,11 @@ k.namespace.scope('arr', [
     }
     + k.container.ports(ports)
     + k.container.mount(storageName, '/config')
-    + k.container.mount(
-      'nas',
-      '/downloads',
-    ),
+    + k.container.mountNAS('/downloads', 'Downloads')
   ])
+  + k.deployment.podLabel('vpn', 'proton')
   + k.deployment.volume.pvc(storageName)
-  + k.deployment.volume.nfs(
-    'nas',
-    '192.168.1.62',
-    '/Downloads/'
-  ),
+  + k.deployment.volume.nas,
 
   k.service.create(name, ports, type='LoadBalancer'),
 ])
