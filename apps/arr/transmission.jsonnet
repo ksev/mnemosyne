@@ -1,39 +1,56 @@
+local onePassword = import '1password.libsonnet';
 local k = import 'kubernetes.libsonnet';
+
 
 local name = 'transmission';
 local storageName = '%s-storage' % name;
+local secret = '%s-login' % name;
 
 local ports = [
   k.ports.http {
     port: 9091,
   },
-  { 
+  {
     name: 'bt-tcp',
     port: 51413,
-    protocol: 'TCP'
+    protocol: 'TCP',
   },
-  { 
+  {
     name: 'bt-udp',
     port: 51413,
-    protocol: 'UDP'
-  }
+    protocol: 'UDP',
+  },
 ];
 
 k.namespace.scope('arr', [
   k.pvc(storageName, '150Mi'),
 
+  onePassword.item(secret, 'Transmission'),
+
   k.deployment.create(name, [
-    { image: 'lscr.io/linuxserver/transmission:latest' }
+    {
+      image: 'lscr.io/linuxserver/transmission:latest',
+      env: [
+        k.env.item('USER', k.env.secretValue {
+          name: secret,
+          key: 'username',
+        }),
+        k.env.item('PASS', k.env.secretValue {
+          name: secret,
+          key: 'password',
+        }),
+      ],
+    }
     + k.container.ports(ports)
-    + k.container.mount(storageName, '/config') 
+    + k.container.mount(storageName, '/config')
     + k.container.mount(
-      'abc123', 
-      '/downloads', 
-    ) 
+      'nas',
+      '/downloads',
+    ),
   ])
   + k.deployment.volume.pvc(storageName)
   + k.deployment.volume.nfs(
-    'abc123',
+    'nas',
     '192.168.1.62',
     '/Downloads/'
   ),
