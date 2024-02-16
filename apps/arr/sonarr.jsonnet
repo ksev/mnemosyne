@@ -18,14 +18,14 @@ k.namespace.scope('arr', [
     + k.container.mount(storageName, '/config')
     + k.container.mount(
       'nas',
-      '/downloads',
+      '/storage',
     ),
   ])
   + k.deployment.volume.pvc(storageName)
   + k.deployment.volume.nfs(
     'nas',
     '192.168.1.62',
-    '/Downloads/'
+    '/'
   ),
 
   k.service.create(name, ports),
