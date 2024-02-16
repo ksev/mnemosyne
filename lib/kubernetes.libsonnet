@@ -89,6 +89,22 @@ local deployment = {
         },
       },
     },
+    nfs: function(name, server, path, readOnly=false) {
+      spec+: {
+        template+: {
+          spec+: {
+            volumes+: [{
+              name: name,
+              nfs: {
+                server: server,
+                path: path,
+                readOnly: readOnly,
+              },
+            }],
+          },
+        },
+      },
+    },
     configMap: function(name, items) {
       spec+: {
         template+: {
