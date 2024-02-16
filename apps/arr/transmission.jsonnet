@@ -29,14 +29,13 @@ k.namespace.scope('arr', [
     + k.container.mount(
       'abc123', 
       '/downloads', 
-      subPath='Downloads/torrent/'
     ) 
   ])
   + k.deployment.volume.pvc(storageName)
   + k.deployment.volume.nfs(
     'abc123',
     '192.168.1.62',
-    '/'
+    '/Downloads/'
   ),
 
   k.service.create(name, ports),
