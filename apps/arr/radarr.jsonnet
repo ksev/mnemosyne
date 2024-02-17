@@ -13,7 +13,7 @@ k.namespace.scope('arr', [
   k.pvc(storageName, '150Mi'),
 
   k.deployment.create(name, [
-    { image: 'lscr.io/linuxserver/sonarr:latest' }
+    { image: 'lscr.io/linuxserver/radarr:latest' }
     + k.container.ports(ports)
     + k.container.mount(storageName, '/config')
     + k.container.mountNAS('Downloads', '/downloads')
