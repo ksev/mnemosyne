@@ -6,17 +6,7 @@ local storageName = '%s-storage' % name;
 local ports = [
   k.ports.http {
     port: 8080,
-  },
-  {
-    name: 'bt-tcp',
-    port: 51413,
-    protocol: 'TCP',
-  },
-  {
-    name: 'bt-udp',
-    port: 51413,
-    protocol: 'UDP',
-  },
+  }
 ];
 
 k.namespace.scope('arr', [
