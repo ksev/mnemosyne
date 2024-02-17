@@ -4,11 +4,11 @@ local name = 'jellyfin';
 local storageName = '%s-storage' % name;
 local cacheName = '%s-cache' % name;
 
-local ports = [{
-  port: 8096,
-  name: 'jelly',
-  protocol: 'TCP',
-}];
+local ports = [
+  k.ports.http {
+    port: 8096
+  }
+];
 
 k.namespace.scope('arr', [
   k.pvc(storageName, '150Mi'),
@@ -25,6 +25,23 @@ k.namespace.scope('arr', [
   + k.deployment.volume.pvc(cacheName)
   + k.deployment.volume.nas,
 
-  k.service.create(name, ports, type='LoadBalancer')
-  + k.service.staticIP('10.50.1.50'),
+  k.service.create(name, [{
+    port: 80,
+    targetPort: 'http',
+    name: 'http',
+    protocol: 'TCP'
+  }]),
+
+  k.ingress.enableTLS(
+    k.ingress.create(name, [
+      k.ingress.rule(
+        '%n.kotee.co' % name,
+        [{
+          path: '/',
+          pathType: 'Prefix',
+          backend: k.ingress.service(name, 'http'),
+        }]
+      ),
+    ])
+  ),
 ])
