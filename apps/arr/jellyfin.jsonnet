@@ -29,12 +29,7 @@ k.namespace.scope('arr', [
   + k.deployment.volume.pvc(cacheName)
   + k.deployment.volume.nas,
 
-  k.service.create(name, [{
-    port: 80,
-    targetPort: 'http',
-    name: 'http',
-    protocol: 'TCP'
-  }]),
+  k.service.create(name, ports),
 
   k.ingress.enableTLS(
     k.ingress.create(name, [
