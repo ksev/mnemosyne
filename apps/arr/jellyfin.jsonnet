@@ -35,7 +35,7 @@ k.namespace.scope('arr', [
   k.ingress.enableTLS(
     k.ingress.create(name, [
       k.ingress.rule(
-        '%n.kotee.co' % name,
+        '%s.kotee.co' % name,
         [{
           path: '/',
           pathType: 'Prefix',
