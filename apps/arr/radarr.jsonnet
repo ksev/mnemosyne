@@ -16,13 +16,12 @@ k.namespace.scope('arr', [
     { image: 'linuxserver/radarr:latest' }
     + k.container.ports(ports)
     + k.container.mount(storageName, '/config')
-    //+ k.container.mountNAS('Downloads', '/downloads')
-    //+ k.container.mountNAS('Media/movies', '/movies'),
+    + k.container.mountNAS('Downloads', '/downloads')
+    + k.container.mountNAS('Media/movies', '/movies'),
   ])
   + k.deployment.volume.pvc(storageName)
-  //+ k.deployment.volume.nas,
+  + k.deployment.volume.nas,
 
-  /*
   k.service.create(name, ports),
 
   k.ingress.enableTLS(
@@ -37,5 +36,4 @@ k.namespace.scope('arr', [
       ),
     ])
   ),
-  */
 ])
