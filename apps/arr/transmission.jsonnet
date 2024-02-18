@@ -48,5 +48,6 @@ k.namespace.scope('arr', [
   + k.deployment.volume.pvc(storageName)
   + k.deployment.volume.nas,
 
-  k.service.create(name, ports, type='LoadBalancer'),
+  k.service.create(name, ports, type='LoadBalancer')
+  + k.service.staticIP('10.50.1.4'),
 ])
