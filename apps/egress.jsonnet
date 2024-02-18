@@ -15,7 +15,7 @@
     egressGateway: {
       nodeSelector: {
         matchLabels: {
-          'kubernetes.io/hostname': 'localhost.localdomain'
+          'kubernetes.io/hostname': 'mnemosyne'
         },
       },
       interface: 'team0.5'
