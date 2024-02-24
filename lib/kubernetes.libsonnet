@@ -17,6 +17,42 @@ local namespace = {
 };
 
 local deployment = {
+  createDS: function(name, containers, tolerations, priorityClass=null, namespace='default') {
+    apiVersion: 'apps/v1',
+    kind: 'DaemonSet',
+    metadata: {
+      name: name,
+      namespace: namespace,
+      labels: {
+        app: name,
+      },
+    },
+    spec: {
+      selector: {
+        matchLabels: {
+          app: name,
+        },
+      },
+      updateStrategy: {
+        type: 'RollingUpdate',
+      },
+      template: {
+        metadata: {
+          labels: {
+            app: name,
+          },
+        },
+        spec: {
+          [if priorityClass != null then 'priorityClassName' else null]: priorityClass,
+          tolerations: tolerations,
+          containers: [
+            { name: name } + c
+            for c in containers
+          ],
+        },
+      },
+    },
+  },
   create: function(name, containers, replicas=1, namespace='default') {
     apiVersion: 'apps/v1',
     kind: 'Deployment',
@@ -50,15 +86,15 @@ local deployment = {
     },
   },
   podLabel: function(name, value) {
-    spec+:{
-      template+:{
-        metadata+:{
+    spec+: {
+      template+: {
+        metadata+: {
           labels+: {
-            [name]: value
-          }
-        }
-      }
-    }
+            [name]: value,
+          },
+        },
+      },
+    },
   },
   initContainers: function(containers) {
     spec+: {
