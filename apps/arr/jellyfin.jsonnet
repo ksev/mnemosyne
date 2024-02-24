@@ -15,7 +15,14 @@ k.namespace.scope('arr', [
   k.pvc(cacheName, '5Gi'),
 
   k.deployment.create(name, [
-    { image: 'jellyfin/jellyfin:latest' }
+    { 
+      image: 'jellyfin/jellyfin:latest',
+      resources: {
+        limits: {
+           'kotee.co/render': 1 
+        }        
+      }
+    }
     + k.container.ports(ports)
     + k.container.mount(storageName, '/config')
     + k.container.mount(cacheName, '/cache')
