@@ -7,10 +7,14 @@ local ports = [
 ];
 
 local name = 'tdarr';
-local storageName = '%s-storage' % name;
+local storageConfig = '%s-config' % name;
+local storageServer = '%s-server' % name;
+local storageLogs = '%s-logs' % name;
 
 k.namespace.scope('arr', [
-  k.pvc(storageName, '300Mi'),
+  k.pvc(storageConfig, '300Mi'),
+  k.pvc(storageServer, '300Mi'),
+  k.pvc(storageLogs, '300Mi'),
 
 	k.deployment.create(name, [
 		{ 
@@ -25,10 +29,14 @@ k.namespace.scope('arr', [
 			]
 		}
 		+ k.container.ports(ports)
-		+ k.container.mount(storageName, '/app')
+		+ k.container.mount(storageConfig, '/app/configs')
+		+ k.container.mount(storageServer, '/app/server')
+		+ k.container.mount(storageLogs, '/app/logs')
 		+ k.container.mountNAS('Media', '/media')
 	])
-	+ k.deployment.volume.pvc(storageName)
+	+ k.deployment.volume.pvc(storageConfig)
+	+ k.deployment.volume.pvc(storageServer)
+	+ k.deployment.volume.pvc(storageLogs)
 	+ k.deployment.volume.nas,
 
 	/*
