@@ -26,8 +26,8 @@ k.deployment.createDS(
           '--device',
           std.manifestJsonMinified({
             name: dev.name,
-            count: dev.count,
             groups: [{
+              count: dev.count,
               paths: [
                 { path: path }
                 for path in dev.paths
