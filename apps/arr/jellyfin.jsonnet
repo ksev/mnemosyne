@@ -27,10 +27,6 @@ k.namespace.scope('arr', [
     + k.container.ports(ports)
     + k.container.mount(storageName, '/config')
     + k.container.mountNAS('Media', '/media')
-    + k.container.liveHttp({
-      path: '/health',
-      port: 8096,
-    }),
   ])
   + k.deployment.volume.pvc(storageName)
   + k.deployment.volume.nas,
