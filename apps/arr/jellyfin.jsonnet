@@ -2,7 +2,6 @@ local k = import 'kubernetes.libsonnet';
 
 local name = 'jellyfin';
 local storageName = '%s-storage' % name;
-local cacheName = '%s-cache' % name;
 
 local ports = [
   k.ports.http {
@@ -34,7 +33,6 @@ k.namespace.scope('arr', [
     }),
   ])
   + k.deployment.volume.pvc(storageName)
-  + k.deployment.volume.pvc(cacheName)
   + k.deployment.volume.nas,
 
   k.service.create(name, ports),
