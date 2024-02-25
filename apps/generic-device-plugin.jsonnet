@@ -10,7 +10,7 @@ local ports = [
 
 local devices = [{
   name: 'render',
-  limit: 10,
+  count: 10,
   paths: ['/dev/dri/renderD128'],
 }];
 
@@ -27,7 +27,7 @@ k.deployment.createDS(
           std.manifestJsonMinified({
             name: dev.name,
             groups: [{
-              limit: dev.limit,
+              count: dev.count,
               paths: [
                 { path: path }
                 for path in dev.paths
