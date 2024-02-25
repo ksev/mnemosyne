@@ -43,7 +43,6 @@ k.namespace.scope('arr', [
 	+ k.deployment.volume.pvc(transcodeCache)
 	+ k.deployment.volume.nas,
 
-	/*
 	k.service.create(name, ports),
 
   k.ingress.enableTLS(
@@ -58,5 +57,4 @@ k.namespace.scope('arr', [
       ),
     ])
   ),
-	*/
 ])
