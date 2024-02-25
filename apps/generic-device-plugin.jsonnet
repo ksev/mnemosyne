@@ -11,7 +11,7 @@ local ports = [
 local devices = [{
   name: 'render',
   count: 10,
-  paths: ['/dev/dri/renderD128'],
+  paths: ['/dev/dri/renderD128','/dev/dri/card1'],
 }];
 
 local name = 'generic-device-plugin';
@@ -26,8 +26,8 @@ k.deployment.createDS(
           '--device',
           std.manifestJsonMinified({
             name: dev.name,
+            count: dev.count,
             groups: [{
-              count: dev.count,
               paths: [
                 { path: path }
                 for path in dev.paths
