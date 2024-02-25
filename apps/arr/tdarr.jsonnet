@@ -29,11 +29,6 @@ k.namespace.scope('arr', [
 				k.env.item("ffmpegVersion", 6),
 				k.env.item("nodeName", "InternalNode")
 			],
-      resources: {
-        limits: {
-           'kotee.co/render': 1 
-        }        
-      }
 		}
 		+ k.container.ports(ports)
 		+ k.container.mount(storageConfig, '/app/configs')

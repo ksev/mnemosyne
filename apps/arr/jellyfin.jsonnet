@@ -12,20 +12,21 @@ local ports = [
 
 k.namespace.scope('arr', [
   k.pvc(storageName, '150Mi'),
-  k.pvc(cacheName, '5Gi'),
 
   k.deployment.create(name, [
     { 
-      image: 'jellyfin/jellyfin:latest',
+      image: 'linuxserver/jellyfin:latest',
       resources: {
         limits: {
            'kotee.co/render': 1 
         }        
-      }
+      },
+      env: [
+        k.env.item('DOCKER_MODS', 'linuxserver/mods:jellyfin-opencl-intel')
+      ]
     }
     + k.container.ports(ports)
     + k.container.mount(storageName, '/config')
-    + k.container.mount(cacheName, '/cache')
     + k.container.mountNAS('Media', '/media')
     + k.container.liveHttp({
       path: '/health',
