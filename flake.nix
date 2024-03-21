@@ -13,6 +13,7 @@
         
         buildInputs = with pkgs; [
           jsonnet
+          jsonnet-language-server
           kubectl
           cilium-cli
           argocd
