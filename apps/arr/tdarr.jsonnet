@@ -21,6 +21,11 @@ k.namespace.scope('arr', [
 	k.deployment.create(name, [
 		{ 
 			image: 'ghcr.io/haveagitgat/tdarr',
+      resources: {
+        limits: {
+           'kotee.co/render': 1 
+        }        
+      },
 			env: [
 				k.env.item("serverIP", "0.0.0.0"),
 				k.env.item("webUIPort", 8265),
