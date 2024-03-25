@@ -5,6 +5,8 @@ local k = import 'kubernetes.libsonnet';
 local blocklists = [
   'https://blocklistproject.github.io/Lists/%s.txt' % list
   for list in [
+    'fraud',
+    'phishing',
     'abuse',
     'ads',
     'malware',
