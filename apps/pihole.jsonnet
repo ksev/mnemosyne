@@ -25,7 +25,7 @@ local secretKey = 'pihole-admin-secret';
   argocd.appHelm(
     'pihole',
     'https://mojo2600.github.io/pihole-kubernetes/',
-    revision='2.21.0',
+    revision='2.22.0',
     namespace='pihole',
     values={
       DNS1: "1.1.1.1",
