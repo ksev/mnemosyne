@@ -11,7 +11,7 @@ local ports = [
 local devices = [{
   name: 'render',
   count: 10,
-  paths: ['/dev/dri/renderD128','/dev/dri/card0'],
+  paths: ['/dev/dri/renderD128','/dev/dri/card1'],
 }];
 
 local name = 'generic-device-plugin';
