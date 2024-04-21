@@ -13,13 +13,14 @@
     {
       devShell = pkgs.mkShell {
         JSONNET_PATH = "lib";
-        KUBECONFIG = "/var/home/kim/Code/home.yaml";
+        KUBECONFIG = "/var/home/kim/Code/kube/home.yaml";
         
         buildInputs = with pkgs; [
           jsonnet
           jsonnet-language-server
           _1password
           kubectl
+          kubernetes-helm
           cilium-cli
           argocd
           k9s
