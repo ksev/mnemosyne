@@ -8,8 +8,11 @@ local argocd = import 'argocd.libsonnet';
     namespace='valheim',
     values={
       worldName: "zixxy",
-      serverName: "what",
+      serverName: "zyx",
       password: "hello123456",
+      env: {
+        BEPINEX: true,
+      },
       storage: {
         kind: "hostvol",
         hostvol: {
