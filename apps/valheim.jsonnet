@@ -9,7 +9,13 @@ local argocd = import 'argocd.libsonnet';
     values={
       worldName: "zixxy",
       serverName: "what",
-      password: "hello123456"
+      password: "hello123456",
+      storage: {
+        kind: "hostvol",
+        hostvol: {
+          path: "/mnt/storage/Valheim"
+        }
+      }
     }
   ),
 ]
