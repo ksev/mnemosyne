@@ -15,6 +15,12 @@ local argocd = import 'argocd.libsonnet';
         hostvol: {
           path: "/mnt/storage/Valheim"
         }
+      },
+      serverStorage: {
+        kind: "hostvol",
+        hostvol: {
+          path: "/mnt/storage/ValheimServer"
+        }
       }
     }
   ),
