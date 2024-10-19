@@ -10,8 +10,8 @@ local argocd = import 'argocd.libsonnet';
       worldName: "zixxy",
       serverName: "zyx",
       password: "hello123456",
-      env: {
-        BEPINEX: true,
+      extraEnvironmentVars: {
+        "BEPINEX": true
       },
       storage: {
         kind: "hostvol",
