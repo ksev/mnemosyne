@@ -152,10 +152,10 @@ local deployment = {
         },
       },
     },
-    nas: deployment.volume.nfs(
+    nas: deployment.volume.hostPath(
       'nas',
-      '192.168.1.62',
-      '/'
+      '/mnt/storage',
+      'Directory'
     ),
     configMap: function(name, items) {
       spec+: {
