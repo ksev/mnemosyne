@@ -14,6 +14,7 @@ k.namespace.scope('mqtt', [
       },
       serial: {
         port: 'tcp://192.168.2.154:6638',
+        adapter: 'zstack'
       },
       frontend: {
         port: 80,
