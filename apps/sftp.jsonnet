@@ -45,4 +45,4 @@ k.namespace.scope('sftp', [
 
   k.service.create(name, ports, type='LoadBalancer')
   + k.service.staticIP('10.50.1.89')
-])
+], create=true)
