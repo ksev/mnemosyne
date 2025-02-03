@@ -26,8 +26,11 @@ k.namespace.scope('sftp', [
         "Users": [
             {
                 "Username": "tom",
-                "Password": "CMccPAAJbv7gP7YV2MK79VQjhWBh"
-            }
+                "Password": "CMccPAAJbv7gP7YV2MK79VQjhWBh",
+                "Chroot" : {
+                    Directory: "/vault/backups/startgenerator"
+                }
+            },
         ]
     }),
   }),
@@ -37,7 +40,7 @@ k.namespace.scope('sftp', [
       image: 'emberstack/sftp:latest',
     }
     + k.container.ports(ports)
-    + k.container.mount(configName, '/app/config//%s' % configFile, subPath=configFile)
+    + k.container.mount(configName, '/app/config/%s' % configFile, subPath=configFile)
     + k.container.mountNAS('Vault', '/vault')
   ])
   + k.deployment.volume.configMap(configName, [configFile])
