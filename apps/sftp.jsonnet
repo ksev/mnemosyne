@@ -8,7 +8,7 @@ local configFile = 'sftp.json';
 local ports = [
     {
         port: 22,
-        name: 'SSH',
+        name: 'sftp',
         protocol: 'TCP'
     }
 ];
